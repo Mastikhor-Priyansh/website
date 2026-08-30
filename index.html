@@ -3,14 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>For You 👀</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,sans-serif;
+    font-family:Arial, sans-serif;
 }
 
 body{
@@ -19,7 +21,12 @@ body{
     justify-content:center;
     align-items:center;
     overflow:hidden;
-    background:linear-gradient(135deg,#ffd6e8,#ddd6ff,#c9f7ff);
+    background:linear-gradient(
+        135deg,
+        #ffd6e8,
+        #ddd6ff,
+        #c9f7ff
+    );
 }
 
 .card{
@@ -27,16 +34,23 @@ body{
     max-width:430px;
     padding:35px 25px;
     text-align:center;
-    background:rgba(255,255,255,.86);
+
+    background:rgba(255,255,255,0.88);
+
     backdrop-filter:blur(15px);
+
     border-radius:30px;
-    box-shadow:0 20px 60px rgba(0,0,0,.15);
-    animation:appear .6s ease;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.15);
+
+    animation:appear 0.6s ease;
 }
 
 .emoji{
     font-size:65px;
     margin-bottom:15px;
+
     animation:bounce 2s infinite;
 }
 
@@ -57,16 +71,23 @@ p{
     display:flex;
     justify-content:center;
     gap:15px;
+    flex-wrap:wrap;
 }
 
 button{
     border:0;
+
     padding:13px 28px;
+
     border-radius:50px;
+
     font-size:16px;
+
     font-weight:bold;
+
     cursor:pointer;
-    transition:.25s;
+
+    transition:0.25s;
 }
 
 button:hover{
@@ -76,11 +97,13 @@ button:hover{
 .yes{
     background:#ff5c8a;
     color:white;
-    box-shadow:0 8px 20px rgba(255,92,138,.3);
+
+    box-shadow:
+        0 8px 20px rgba(255,92,138,0.3);
 }
 
 .no{
-    background:#eee;
+    background:#eeeeee;
     color:#444;
 }
 
@@ -90,15 +113,24 @@ button:hover{
 
 .qrbox{
     display:inline-block;
+
     padding:18px;
+
     background:white;
+
     border-radius:20px;
+
     margin:5px 0 15px;
-    box-shadow:0 10px 30px rgba(0,0,0,.12);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.12);
 }
 
-#qrcode img{
+#qr{
     display:block;
+
+    width:250px;
+    height:250px;
 }
 
 .small{
@@ -108,66 +140,152 @@ button:hover{
 
 .progress{
     margin-top:22px;
+
     font-size:12px;
+
     color:#aaa;
+}
+
+.rating-box{
+    margin-top:25px;
+
+    padding:18px;
+
+    background:rgba(255,92,138,0.10);
+
+    border-radius:20px;
+}
+
+.rating-title{
+    font-size:12px;
+
+    color:#999;
+
+    margin-bottom:8px;
+
+    letter-spacing:1px;
+}
+
+.rating-text{
+    font-size:17px;
+
+    font-weight:bold;
+
+    color:#555;
 }
 
 .float{
     position:fixed;
+
     font-size:22px;
-    opacity:.5;
+
+    opacity:0.5;
+
     pointer-events:none;
+
     animation:float 6s linear infinite;
 }
 
-.f1{left:10%;}
-.f2{left:30%;animation-delay:2s;}
-.f3{left:70%;animation-delay:1s;}
-.f4{left:90%;animation-delay:3s;}
+.f1{
+    left:10%;
+}
+
+.f2{
+    left:30%;
+    animation-delay:2s;
+}
+
+.f3{
+    left:70%;
+    animation-delay:1s;
+}
+
+.f4{
+    left:90%;
+    animation-delay:3s;
+}
 
 @keyframes appear{
+
     from{
         opacity:0;
-        transform:scale(.9) translateY(20px);
+
+        transform:
+            scale(0.9)
+            translateY(20px);
     }
+
     to{
         opacity:1;
-        transform:scale(1) translateY(0);
+
+        transform:
+            scale(1)
+            translateY(0);
     }
+
 }
 
 @keyframes bounce{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
 }
 
 @keyframes float{
+
     from{
-        transform:translateY(100vh) rotate(0deg);
+        transform:
+            translateY(100vh)
+            rotate(0deg);
     }
+
     to{
-        transform:translateY(-120vh) rotate(360deg);
+        transform:
+            translateY(-120vh)
+            rotate(360deg);
     }
+
 }
+
 </style>
+
 </head>
 
+
 <body>
+
+
+<!-- FLOATING EMOJIS -->
 
 <div class="float f1">💗</div>
 <div class="float f2">✨</div>
 <div class="float f3">💖</div>
 <div class="float f4">⭐</div>
 
+
+
 <div class="card">
 
-<!-- ================= PAGE 1 : QR ================= -->
+
+<!-- ================================================= -->
+<!-- PAGE 1 : QR CODE -->
+<!-- ================================================= -->
 
 <div id="page1">
 
-    <div class="emoji">👀</div>
+    <div class="emoji">
+        👀
+    </div>
 
-    <h1>Scan This 👇</h1>
+    <h1>
+        Scan This 👇
+    </h1>
 
     <p>
         Kuch interesting hai andar...
@@ -175,255 +293,506 @@ button:hover{
         Agar himmat hai toh scan kar 😂
     </p>
 
+
     <div class="qrbox">
-        <canvas id="qr"></canvas>
+
+        <img
+            id="qr"
+            alt="QR Code"
+        >
+
     </div>
 
+
     <p class="small">
+
         📱 Scan the QR code
+
         <br>
+
         to continue
+
     </p>
 
+
     <div class="progress">
+
         Step 1 • Scan Me
+
     </div>
 
 </div>
 
 
-<!-- ================= PAGE 2 ================= -->
+
+<!-- ================================================= -->
+<!-- PAGE 2 : QUESTION 1 -->
+<!-- ================================================= -->
 
 <div id="page2" class="hidden">
 
-    <div class="emoji">😂</div>
+    <div class="emoji">
+        😂
+    </div>
 
-    <h1>Ek chhota sa sawaal...</h1>
+
+    <h1>
+        Ek chhota sa sawaal...
+    </h1>
+
 
     <p>
+
         Sach sach answer dena.
+
         <br>
+
         Jhooth pakda gaya toh izzat gayi 😂
+
     </p>
+
 
     <div class="buttons">
 
-        <button class="yes" onclick="showPage(3)">
+        <button
+            class="yes"
+            onclick="showPage(3)"
+        >
             Haan 😎
         </button>
 
-        <button class="no" onclick="nope()">
+
+        <button
+            class="no"
+            onclick="nope()"
+        >
             Nahi 🙄
         </button>
 
     </div>
 
+
     <div class="progress">
+
         Question 1 of 3
+
     </div>
 
 </div>
 
 
-<!-- ================= PAGE 3 ================= -->
+
+<!-- ================================================= -->
+<!-- PAGE 3 : QUESTION 2 -->
+<!-- ================================================= -->
 
 <div id="page3" class="hidden">
 
-    <div class="emoji">🧠</div>
+    <div class="emoji">
+        🧠
+    </div>
 
-    <h1>Kya tu intelligent hai?</h1>
+
+    <h1>
+        Kya tu intelligent hai?
+    </h1>
+
 
     <p>
+
         Dhyaan se soch ke answer dena...
+
         <br>
+
         Ye test tere future ka sawaal hai 😂
+
     </p>
+
 
     <div class="buttons">
 
-        <button class="yes" onclick="showPage(4)">
+
+        <button
+            class="yes"
+            onclick="showPage(4)"
+        >
             Obviously 😎
         </button>
 
-        <button class="no" onclick="nope()">
+
+        <button
+            class="no"
+            onclick="nope()"
+        >
             Bilkul nahi 😭
         </button>
 
+
     </div>
 
+
     <div class="progress">
+
         Question 2 of 3
+
     </div>
 
 </div>
 
 
-<!-- ================= PAGE 4 ================= -->
+
+<!-- ================================================= -->
+<!-- PAGE 4 : QUESTION 3 -->
+<!-- ================================================= -->
 
 <div id="page4" class="hidden">
 
-    <div class="emoji">🤨</div>
+    <div class="emoji">
+        🤨
+    </div>
 
-    <h1>Kya tu ek achha friend hai?</h1>
+
+    <h1>
+        Kya tu ek achha friend hai?
+    </h1>
+
 
     <p>
+
         Iska answer galat hua...
+
         <br>
+
         toh friendship cancel 💀
+
     </p>
+
 
     <div class="buttons">
 
-        <button class="yes" onclick="showPage(5)">
+
+        <button
+            class="yes"
+            onclick="showPage(5)"
+        >
             YES ❤️
         </button>
 
-        <button class="no" onclick="nope()">
+
+        <button
+            class="no"
+            onclick="nope()"
+        >
             NO 💀
         </button>
 
+
     </div>
 
+
     <div class="progress">
+
         Question 3 of 3
+
     </div>
 
 </div>
 
 
-<!-- ================= PAGE 5 ================= -->
+
+<!-- ================================================= -->
+<!-- PAGE 5 : TREAT QUESTION -->
+<!-- ================================================= -->
 
 <div id="page5" class="hidden">
 
-    <div class="emoji">🎉</div>
+    <div class="emoji">
+        🎉
+    </div>
 
-    <h1>CONGRATULATIONS!</h1>
 
-    <p>
-        Tu successfully is website
-        mein phas gaya 😂
-        <br><br>
-        Ab asli sawaal...
-    </p>
-
-    <h1 style="font-size:22px;">
-        Treat kab de raha hai? 🍕
+    <h1>
+        CONGRATULATIONS!
     </h1>
 
-    <div class="buttons" style="margin-top:20px;">
 
-        <button class="yes" onclick="celebrate()">
+    <p>
+
+        Tu successfully is website
+        mein phas gaya 😂
+
+        <br><br>
+
+        Ab asli sawaal...
+
+    </p>
+
+
+    <h1 style="font-size:22px;">
+
+        Treat kab de raha hai? 🍕
+
+    </h1>
+
+
+    <div
+        class="buttons"
+        style="margin-top:20px;"
+    >
+
+
+        <!-- TODAY -->
+
+        <button
+            class="yes"
+            onclick="showPage(6)"
+        >
             Aaj 😎
         </button>
 
-        <button class="no" onclick="celebrate()">
+
+        <!-- TOMORROW -->
+
+        <button
+            class="no"
+            onclick="tomorrow()"
+        >
             Kal 😂
         </button>
+
+
+    </div>
+
+
+    <div class="progress">
+
+        Final Question ❤️
 
     </div>
 
 </div>
 
+
+
+<!-- ================================================= -->
+<!-- PAGE 6 : TODAY -->
+<!-- ================================================= -->
+
+<div id="page6" class="hidden">
+
+    <div class="emoji">
+        🫡
+    </div>
+
+
+    <h1>
+        AYE HAYE! 😭❤️
+    </h1>
+
+
+    <p>
+
+        Aaj treat dene ke liye ready ho gaya? 😂
+
+        <br><br>
+
+        Finally, kuch toh sahi
+        decision liya tune. 😎
+
+        <br><br>
+
+        <b>
+            Respect +1000 🫡
+        </b>
+
+    </p>
+
+
+    <div class="rating-box">
+
+        <div class="rating-title">
+            YOUR HONEST REVIEW 👀
+        </div>
+
+
+        <div class="rating-text">
+            Rate this out of 10 ⭐
+        </div>
+
+    </div>
+
+
+    <div class="progress">
+
+        You made the right choice 😌
+
+    </div>
+
 </div>
+
+
+</div>
+
 
 
 <script>
 
-/* =========================
-   PAGE NAVIGATION
-========================= */
+
+/* ================================================= */
+/* PAGE NAVIGATION */
+/* ================================================= */
 
 function showPage(number){
 
-    for(let i=1;i<=5;i++){
-        document
-        .getElementById("page"+i)
-        .classList.add("hidden");
+    /*
+        Hide ALL pages
+    */
+
+    for(
+        let i = 1;
+        i <= 6;
+        i++
+    ){
+
+        const page =
+            document.getElementById(
+                "page" + i
+            );
+
+        if(page){
+
+            page.classList.add(
+                "hidden"
+            );
+
+        }
+
     }
 
-    document
-    .getElementById("page"+number)
-    .classList.remove("hidden");
+
+    /*
+        Show selected page
+    */
+
+    const selected =
+        document.getElementById(
+            "page" + number
+        );
+
+
+    if(selected){
+
+        selected.classList.remove(
+            "hidden"
+        );
+
+    }
+
+
+    /*
+        Update URL
+
+        This allows QR / links
+        to open specific pages.
+    */
+
+    if(number === 2){
+
+        history.replaceState(
+            null,
+            "",
+            "?page=2"
+        );
+
+    }
 
 }
 
 
-/* =========================
-   NO BUTTON
-========================= */
+
+/* ================================================= */
+/* NO BUTTON */
+/* ================================================= */
 
 function nope(){
 
     alert(
-        "Nice try 😂\n\nAb YES pe click kar."
+        "Nice try 😂\n\n" +
+        "Ab YES pe click kar."
     );
 
 }
 
 
-/* =========================
-   QR CODE
-========================= */
 
-/*
-   QR destination:
-   Current GitHub Pages website
-   + ?page=2
+/* ================================================= */
+/* TOMORROW BUTTON */
+/* ================================================= */
 
-   Scanning QR opens Question 1.
-*/
+function tomorrow(){
 
-function createQR(){
+    alert(
 
-    const canvas =
-        document.getElementById("qr");
+        "Kal? 🤨\n\n" +
 
-    const ctx =
-        canvas.getContext("2d");
+        "Bhai aaj se kal pe shift " +
+        "kar diya? 😂\n\n" +
 
-    const size = 250;
+        "Nice try 💀"
 
-    canvas.width = size;
-    canvas.height = size;
-
-    /*
-       Simple built-in QR-like visual
-       will be replaced by a real QR
-       using an online QR endpoint.
-    */
-
-    const url =
-        window.location.origin +
-        window.location.pathname +
-        "?page=2";
-
-    const img =
-        new Image();
-
-    img.crossOrigin = "anonymous";
-
-    img.src =
-        "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="
-        + encodeURIComponent(url);
-
-    img.onload=function(){
-
-        ctx.drawImage(
-            img,
-            0,
-            0,
-            size,
-            size
-        );
-
-    };
+    );
 
 }
 
 
-/* =========================
-   OPEN PAGE FROM QR
-========================= */
+
+/* ================================================= */
+/* CREATE QR CODE */
+/* ================================================= */
+
+function createQR(){
+
+    /*
+        Current GitHub Pages URL
+    */
+
+    const currentURL =
+        window.location.origin +
+        window.location.pathname;
+
+
+    /*
+        QR will open Question 1
+    */
+
+    const destination =
+        currentURL +
+        "?page=2";
+
+
+    /*
+        QR Server API
+    */
+
+    const qrURL =
+        "https://api.qrserver.com/v1/create-qr-code/" +
+        "?size=300x300&data=" +
+        encodeURIComponent(
+            destination
+        );
+
+
+    document
+        .getElementById("qr")
+        .src = qrURL;
+
+}
+
+
+
+/* ================================================= */
+/* CHECK URL */
+/* ================================================= */
 
 function checkPage(){
 
@@ -432,94 +801,47 @@ function checkPage(){
             window.location.search
         );
 
+
     const page =
         params.get("page");
 
+
+    /*
+        If QR was scanned
+    */
+
     if(page === "2"){
+
         showPage(2);
-    }
 
-    else if(page === "3"){
-        showPage(3);
-    }
-
-    else if(page === "4"){
-        showPage(4);
-    }
-
-    else if(page === "5"){
-        showPage(5);
     }
 
     else{
+
+        /*
+            Normal website opening
+            shows QR page
+        */
+
         showPage(1);
-    }
-
-}
-
-
-/* =========================
-   FINAL CELEBRATION
-========================= */
-
-function celebrate(){
-
-    alert(
-        "Screenshot le liya gaya hai 📸😂\n\n"+
-        "Ab bhaag mat — TREAT PAKKI! 🍕🔥"
-    );
-
-    for(let i=0;i<30;i++){
-
-        const c =
-            document.createElement("div");
-
-        c.innerHTML =
-            ["🎉","✨","💖","😂","🔥","⭐"]
-            [Math.floor(Math.random()*6)];
-
-        c.style.position="fixed";
-        c.style.left=Math.random()*100+"vw";
-        c.style.top="-30px";
-        c.style.fontSize="25px";
-        c.style.zIndex="9999";
-
-        document.body.appendChild(c);
-
-        const animation =
-            c.animate(
-                [
-                    {
-                        transform:
-                        "translateY(0) rotate(0deg)"
-                    },
-                    {
-                        transform:
-                        "translateY(110vh) rotate(720deg)"
-                    }
-                ],
-                {
-                    duration:
-                    2000+Math.random()*2000,
-                    easing:"linear"
-                }
-            );
-
-        animation.onfinish=()=>{
-            c.remove();
-        };
 
     }
 
 }
 
 
-/* START */
+
+/* ================================================= */
+/* START WEBSITE */
+/* ================================================= */
 
 createQR();
+
 checkPage();
 
+
 </script>
+
 
 </body>
 </html>
