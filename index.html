@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>QR Code Image</title>
+    <title>Scan QR Code</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial;
+        }
+
+        #image {
+            display: none;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 
 <body>
@@ -12,19 +24,30 @@
 
     <div id="qrcode"></div>
 
-    <br>
-
-    <img src="1000204365.jpg"
+    <img id="image"
+         src="1000204365.jpg"
          width="500"
          height="650"
          alt="Gorilla Image">
 
     <script>
+
+        // QR code will open this page with ?show=image
+        var imageURL = window.location.href.split('?')[0] + "?show=image";
+
         new QRCode(document.getElementById("qrcode"), {
-            text: window.location.href,
+            text: imageURL,
             width: 250,
             height: 250
         });
+
+        // Show image only after QR code link is opened
+        if (window.location.search === "?show=image") {
+            document.getElementById("image").style.display = "block";
+            document.getElementById("qrcode").style.display = "none";
+            document.querySelector("h1").innerHTML = "Surprise! 😂";
+        }
+
     </script>
 
 </body>
