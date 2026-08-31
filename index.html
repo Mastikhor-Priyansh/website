@@ -6,25 +6,7 @@
 
     <title>Money Follows Maah</title>
 
-    <!-- Basic security -->
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-
-    <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self';
-                   img-src 'self' data:;
-                   style-src 'self' 'unsafe-inline';
-                   script-src 'self';
-                   object-src 'none';
-                   base-uri 'self';
-                   form-action 'self';
-                   frame-ancestors 'none';">
-
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             margin: 0;
             min-height: 100vh;
@@ -32,127 +14,95 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         h1 {
-            margin: 30px 10px 20px;
-            font-size: clamp(25px, 5vw, 50px);
-            animation: titleGlow 2s ease-in-out infinite alternate;
+            margin-top: 30px;
+            font-size: 40px;
         }
 
-        /* Ravi Kishan image */
-        .ravi-image {
-            display: block;
-            width: 1000px;
-            height: 1000px;
-            max-width: 90%;
-            object-fit: cover;
-
+        .image-container {
+            width: 90%;
+            max-width: 1000px;
             margin: 30px auto;
+        }
 
+        .ravi-image {
+            width: 100%;
+            height: auto;
+            display: block;
             border-radius: 25px;
 
+            /* MAIN ANIMATION */
             animation:
-                floatRavi 3s ease-in-out infinite,
-                glowRavi 2s ease-in-out infinite alternate;
+                entrance 1.5s ease-out,
+                crazyPulse 2s ease-in-out 1.5s infinite,
+                glow 2s ease-in-out infinite alternate;
 
-            transition: transform 0.4s ease;
+            transition: transform 0.3s ease;
         }
 
-        /* Floating animation */
-        @keyframes floatRavi {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-
-            50% {
-                transform: translateY(-18px) rotate(1deg);
-            }
-        }
-
-        /* Golden glow */
-        @keyframes glowRavi {
-            from {
-                box-shadow:
-                    0 0 10px rgba(255, 215, 0, 0.3);
-            }
-
-            to {
-                box-shadow:
-                    0 0 25px rgba(255, 215, 0, 0.9),
-                    0 0 60px rgba(255, 165, 0, 0.5);
-            }
-        }
-
-        /* Title glow */
-        @keyframes titleGlow {
-            from {
-                text-shadow: 0 0 5px #fff;
-            }
-
-            to {
-                text-shadow:
-                    0 0 15px gold,
-                    0 0 30px orange;
-            }
-        }
-
-        /* Hover effect */
-        .ravi-image:hover {
-            transform: scale(1.04) rotate(-2deg);
-            cursor: pointer;
-        }
-
-        /* Floating money emojis */
-        .money {
-            position: fixed;
-            font-size: 35px;
-            pointer-events: none;
-            animation: moneyFall linear infinite;
-            opacity: 0.8;
-        }
-
-        .money:nth-child(1) {
-            left: 10%;
-            animation-duration: 5s;
-            animation-delay: 0s;
-        }
-
-        .money:nth-child(2) {
-            left: 30%;
-            animation-duration: 6s;
-            animation-delay: 2s;
-        }
-
-        .money:nth-child(3) {
-            left: 55%;
-            animation-duration: 4s;
-            animation-delay: 1s;
-        }
-
-        .money:nth-child(4) {
-            left: 75%;
-            animation-duration: 7s;
-            animation-delay: 3s;
-        }
-
-        .money:nth-child(5) {
-            left: 90%;
-            animation-duration: 5s;
-            animation-delay: 1s;
-        }
-
-        @keyframes moneyFall {
+        /* Image enters dramatically */
+        @keyframes entrance {
             0% {
-                top: -50px;
-                transform: rotate(0deg);
+                opacity: 0;
+                transform: scale(0.2) rotate(-15deg);
+            }
+
+            60% {
+                opacity: 1;
+                transform: scale(1.08) rotate(5deg);
             }
 
             100% {
-                top: 110vh;
-                transform: rotate(360deg);
+                transform: scale(1) rotate(0deg);
             }
+        }
+
+        /* Continuous funny zoom + shake */
+        @keyframes crazyPulse {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            25% {
+                transform: scale(1.03) rotate(-1deg);
+            }
+
+            50% {
+                transform: scale(1.06) rotate(1deg);
+            }
+
+            75% {
+                transform: scale(1.03) rotate(-1deg);
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        /* Glowing border */
+        @keyframes glow {
+            from {
+                box-shadow:
+                    0 0 10px gold,
+                    0 0 20px orange;
+            }
+
+            to {
+                box-shadow:
+                    0 0 30px gold,
+                    0 0 70px orange,
+                    0 0 100px gold;
+            }
+        }
+
+        /* Extra effect on mouse hover */
+        .ravi-image:hover {
+            transform: scale(1.1) rotate(3deg);
+            cursor: pointer;
         }
     </style>
 </head>
@@ -161,21 +111,13 @@
 
     <h1>Money follows maah brothaaa 💰</h1>
 
-    <!-- Flying money -->
-    <div class="money">💰</div>
-    <div class="money">💵</div>
-    <div class="money">💰</div>
-    <div class="money">💵</div>
-    <div class="money">💰</div>
-
-    <!-- Main image -->
-    <img
-        class="ravi-image"
-        src="ravikishan.jpg"
-        width="1000"
-        height="1000"
-        alt="Money follows maah brothaaa"
-    >
+    <div class="image-container">
+        <img
+            class="ravi-image"
+            src="ravikishan.jpg"
+            alt="Money follows maah brothaaa"
+        >
+    </div>
 
 </body>
 </html>
