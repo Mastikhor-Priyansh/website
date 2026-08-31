@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Money Follows Maah</title>
 
-    <!-- Security-related browser policies -->
+    <!-- Basic security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
     <meta http-equiv="Content-Security-Policy"
           content="default-src 'self';
                    img-src 'self' data:;
@@ -18,93 +20,162 @@
                    form-action 'self';
                    frame-ancestors 'none';">
 
-    <meta http-equiv="X-Content-Type-Options"
-          content="nosniff">
-
-    <meta name="referrer"
-          content="strict-origin-when-cross-origin">
-
-    <meta http-equiv="Permissions-Policy"
-          content="camera=(),
-                   microphone=(),
-                   geolocation=(),
-                   payment=(),
-                   usb=()">
-
     <style>
         * {
             box-sizing: border-box;
         }
 
-        html, body {
-            margin: 0;
-            padding: 0;
-        }
-
         body {
+            margin: 0;
+            min-height: 100vh;
+            background: #111;
+            color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            background: #ffffff;
+            overflow-x: hidden;
         }
 
         h1 {
-            margin-top: 30px;
+            margin: 30px 10px 20px;
+            font-size: clamp(25px, 5vw, 50px);
+            animation: titleGlow 2s ease-in-out infinite alternate;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
+        /* Ravi Kishan image */
+        .ravi-image {
             display: block;
-            margin: 20px auto;
+            width: 1000px;
+            height: 1000px;
+            max-width: 90%;
+            object-fit: cover;
+
+            margin: 30px auto;
+
+            border-radius: 25px;
+
+            animation:
+                floatRavi 3s ease-in-out infinite,
+                glowRavi 2s ease-in-out infinite alternate;
+
+            transition: transform 0.4s ease;
+        }
+
+        /* Floating animation */
+        @keyframes floatRavi {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-18px) rotate(1deg);
+            }
+        }
+
+        /* Golden glow */
+        @keyframes glowRavi {
+            from {
+                box-shadow:
+                    0 0 10px rgba(255, 215, 0, 0.3);
+            }
+
+            to {
+                box-shadow:
+                    0 0 25px rgba(255, 215, 0, 0.9),
+                    0 0 60px rgba(255, 165, 0, 0.5);
+            }
+        }
+
+        /* Title glow */
+        @keyframes titleGlow {
+            from {
+                text-shadow: 0 0 5px #fff;
+            }
+
+            to {
+                text-shadow:
+                    0 0 15px gold,
+                    0 0 30px orange;
+            }
+        }
+
+        /* Hover effect */
+        .ravi-image:hover {
+            transform: scale(1.04) rotate(-2deg);
+            cursor: pointer;
+        }
+
+        /* Floating money emojis */
+        .money {
+            position: fixed;
+            font-size: 35px;
+            pointer-events: none;
+            animation: moneyFall linear infinite;
+            opacity: 0.8;
+        }
+
+        .money:nth-child(1) {
+            left: 10%;
+            animation-duration: 5s;
+            animation-delay: 0s;
+        }
+
+        .money:nth-child(2) {
+            left: 30%;
+            animation-duration: 6s;
+            animation-delay: 2s;
+        }
+
+        .money:nth-child(3) {
+            left: 55%;
+            animation-duration: 4s;
+            animation-delay: 1s;
+        }
+
+        .money:nth-child(4) {
+            left: 75%;
+            animation-duration: 7s;
+            animation-delay: 3s;
+        }
+
+        .money:nth-child(5) {
+            left: 90%;
+            animation-duration: 5s;
+            animation-delay: 1s;
+        }
+
+        @keyframes moneyFall {
+            0% {
+                top: -50px;
+                transform: rotate(0deg);
+            }
+
+            100% {
+                top: 110vh;
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <h1>Money follows maah brothaaa</h1>
+    <h1>Money follows maah brothaaa 💰</h1>
 
+    <!-- Flying money -->
+    <div class="money">💰</div>
+    <div class="money">💵</div>
+    <div class="money">💰</div>
+    <div class="money">💵</div>
+    <div class="money">💰</div>
+
+    <!-- Main image -->
     <img
+        class="ravi-image"
         src="ravikishan.jpg"
         width="1000"
         height="1000"
         alt="Money follows maah brothaaa"
-        loading="lazy"
-        decoding="async"
     >
-
-    <script>
-        "use strict";
-
-        /*
-         * Basic anti-clickjacking fallback.
-         * The real protection should ideally be provided
-         * by the server's frame-ancestors/X-Frame-Options header.
-         */
-        if (window.top !== window.self) {
-            window.top.location = window.self.location;
-        }
-
-        /*
-         * Block javascript: links if any are accidentally
-         * added later.
-         */
-        document.addEventListener("click", function (event) {
-            const link = event.target.closest("a");
-
-            if (!link) return;
-
-            const href = link.getAttribute("href");
-
-            if (
-                href &&
-                href.trim().toLowerCase().startsWith("javascript:")
-            ) {
-                event.preventDefault();
-                console.warn("Unsafe link blocked.");
-            }
-        });
-    </script>
 
 </body>
 </html>
