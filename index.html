@@ -14,107 +14,474 @@
         body {
             margin: 0;
             min-height: 100vh;
-            background: #111;
+            background:
+                radial-gradient(circle at center, #302000 0%, #111 45%, #000 100%);
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
             overflow-x: hidden;
         }
 
-        h1 {
-            margin: 25px 10px;
-            font-size: clamp(25px, 5vw, 45px);
+        /* =========================
+           TITLE
+        ========================= */
 
-            animation: titleGlow 2s ease-in-out infinite alternate;
+        h1 {
+            margin: 25px 10px 15px;
+            font-size: clamp(25px, 5vw, 50px);
+            font-weight: 900;
+            letter-spacing: 2px;
+
+            animation:
+                titleEnter 1s ease-out,
+                titleGlow 1.5s ease-in-out 1s infinite alternate;
         }
+
+        @keyframes titleEnter {
+            0% {
+                opacity: 0;
+                transform: translateY(-60px) scale(0.5);
+            }
+
+            70% {
+                transform: translateY(10px) scale(1.1);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes titleGlow {
+            from {
+                text-shadow:
+                    0 0 5px white;
+            }
+
+            to {
+                text-shadow:
+                    0 0 10px gold,
+                    0 0 25px orange,
+                    0 0 45px gold;
+            }
+        }
+
+
+        /* =========================
+           IMAGE AREA
+        ========================= */
 
         .image-container {
             width: 100%;
-            padding: 10px 20px 40px;
+            padding: 10px 15px 20px;
 
             display: flex;
             justify-content: center;
             align-items: center;
+
+            position: relative;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+
+            animation:
+                imageEntrance 1.5s cubic-bezier(.17,.67,.32,1.3),
+                floating 4s ease-in-out 1.5s infinite;
         }
 
         .ravi-image {
-            /* FULL IMAGE — NO CROPPING */
             width: 100%;
-            max-width: 1000px;
             height: auto;
 
             display: block;
 
             border-radius: 25px;
 
-            /* Animation */
+            position: relative;
+            z-index: 2;
+
             animation:
-                entrance 1.3s ease-out,
-                pulse 2.5s ease-in-out 1.3s infinite,
-                glow 2s ease-in-out infinite alternate;
+                imagePulse 3s ease-in-out infinite,
+                imageShake 5s ease-in-out infinite;
 
             transition: transform 0.4s ease;
         }
 
-        /* Entrance */
-        @keyframes entrance {
+        /* Dramatic entrance */
+
+        @keyframes imageEntrance {
             0% {
                 opacity: 0;
-                transform: scale(0.5) rotate(-8deg);
+                transform:
+                    scale(0.1)
+                    rotate(-20deg);
+                filter: brightness(0);
             }
 
-            70% {
+            50% {
                 opacity: 1;
-                transform: scale(1.04) rotate(2deg);
+                transform:
+                    scale(1.08)
+                    rotate(4deg);
+                filter: brightness(1.8);
+            }
+
+            75% {
+                transform:
+                    scale(0.97)
+                    rotate(-2deg);
             }
 
             100% {
-                transform: scale(1) rotate(0deg);
+                transform:
+                    scale(1)
+                    rotate(0);
+                filter: brightness(1);
             }
         }
 
-        /* Continuous animation */
-        @keyframes pulse {
+        /* Floating */
+
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        /* Breathing zoom */
+
+        @keyframes imagePulse {
             0%, 100% {
                 transform: scale(1);
             }
 
             50% {
-                transform: scale(1.035);
+                transform: scale(1.025);
             }
         }
 
-        /* Glow */
-        @keyframes glow {
+        /* Random-looking tiny shake */
+
+        @keyframes imageShake {
+            0%, 90%, 100% {
+                transform: rotate(0deg);
+            }
+
+            92% {
+                transform: rotate(-1deg);
+            }
+
+            94% {
+                transform: rotate(1deg);
+            }
+
+            96% {
+                transform: rotate(-0.5deg);
+            }
+        }
+
+
+        /* =========================
+           GLOW BEHIND IMAGE
+        ========================= */
+
+        .image-wrapper::before {
+            content: "";
+
+            position: absolute;
+            inset: -8px;
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    gold,
+                    orange,
+                    yellow,
+                    gold
+                );
+
+            background-size: 300% 300%;
+
+            filter: blur(18px);
+
+            opacity: 0.7;
+
+            z-index: 0;
+
+            animation: movingGlow 3s linear infinite;
+        }
+
+        @keyframes movingGlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+
+        /* =========================
+           LIGHT SWEEP
+        ========================= */
+
+        .image-wrapper::after {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: -100%;
+
+            width: 50%;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,0.45),
+                    transparent
+                );
+
+            transform: skewX(-20deg);
+
+            z-index: 3;
+
+            pointer-events: none;
+
+            animation: lightSweep 4s ease-in-out infinite;
+        }
+
+        @keyframes lightSweep {
+
+            0% {
+                left: -100%;
+            }
+
+            30% {
+                left: 150%;
+            }
+
+            100% {
+                left: 150%;
+            }
+        }
+
+
+        /* =========================
+           FAHH FAHH
+        ========================= */
+
+        .fahhh {
+            margin-top: 15px;
+            margin-bottom: 50px;
+
+            font-size: clamp(45px, 10vw, 110px);
+
+            font-weight: 1000;
+
+            letter-spacing: 8px;
+
+            color: white;
+
+            display: inline-block;
+
+            position: relative;
+
+            animation:
+                fahEnter 1.5s cubic-bezier(.17,.67,.32,1.3),
+                fahBounce 2s ease-in-out 1.5s infinite,
+                fahGlow 1s ease-in-out infinite alternate;
+        }
+
+        /* Big entrance */
+
+        @keyframes fahEnter {
+
+            0% {
+                opacity: 0;
+
+                transform:
+                    translateY(100px)
+                    scale(0.2)
+                    rotate(-15deg);
+            }
+
+            60% {
+                opacity: 1;
+
+                transform:
+                    translateY(-15px)
+                    scale(1.25)
+                    rotate(5deg);
+            }
+
+            80% {
+                transform:
+                    translateY(5px)
+                    scale(0.95)
+                    rotate(-2deg);
+            }
+
+            100% {
+                transform:
+                    translateY(0)
+                    scale(1)
+                    rotate(0);
+            }
+        }
+
+        /* Bounce */
+
+        @keyframes fahBounce {
+
+            0%, 100% {
+                transform: translateY(0) rotate(0);
+            }
+
+            25% {
+                transform: translateY(-12px) rotate(-2deg);
+            }
+
+            50% {
+                transform: translateY(0) rotate(2deg);
+            }
+
+            75% {
+                transform: translateY(-7px) rotate(-1deg);
+            }
+        }
+
+        /* Crazy glow */
+
+        @keyframes fahGlow {
+
             from {
-                box-shadow:
-                    0 0 10px gold;
-            }
-
-            to {
-                box-shadow:
-                    0 0 25px gold,
-                    0 0 55px orange;
-            }
-        }
-
-        /* Hover */
-        .ravi-image:hover {
-            transform: scale(1.06) rotate(2deg);
-        }
-
-        /* Title animation */
-        @keyframes titleGlow {
-            from {
-                text-shadow: 0 0 5px white;
+                text-shadow:
+                    0 0 5px white,
+                    0 0 15px gold;
             }
 
             to {
                 text-shadow:
-                    0 0 15px gold,
-                    0 0 30px orange;
+                    0 0 10px white,
+                    0 0 25px gold,
+                    0 0 45px orange,
+                    0 0 70px red;
             }
         }
+
+
+        /* =========================
+           MONEY PARTICLES
+        ========================= */
+
+        .money {
+            position: fixed;
+
+            top: -60px;
+
+            font-size: 30px;
+
+            pointer-events: none;
+
+            z-index: 10;
+
+            animation: moneyFall linear infinite;
+
+            opacity: 0.85;
+        }
+
+        .money:nth-of-type(1) {
+            left: 5%;
+            animation-duration: 5s;
+        }
+
+        .money:nth-of-type(2) {
+            left: 20%;
+            animation-duration: 7s;
+            animation-delay: 2s;
+        }
+
+        .money:nth-of-type(3) {
+            left: 40%;
+            animation-duration: 6s;
+            animation-delay: 1s;
+        }
+
+        .money:nth-of-type(4) {
+            left: 65%;
+            animation-duration: 5s;
+            animation-delay: 3s;
+        }
+
+        .money:nth-of-type(5) {
+            left: 85%;
+            animation-duration: 8s;
+            animation-delay: 1s;
+        }
+
+        @keyframes moneyFall {
+
+            0% {
+                transform:
+                    translateY(-50px)
+                    rotate(0deg)
+                    scale(0.5);
+
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            100% {
+                transform:
+                    translateY(110vh)
+                    rotate(720deg)
+                    scale(1.3);
+
+                opacity: 0;
+            }
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            h1 {
+                margin-top: 18px;
+            }
+
+            .image-container {
+                padding: 10px;
+            }
+
+            .fahhh {
+                letter-spacing: 3px;
+            }
+        }
+
     </style>
 </head>
 
@@ -122,12 +489,31 @@
 
     <h1>Money follows maah brothaaa 💰</h1>
 
+    <!-- Money particles -->
+    <div class="money">💰</div>
+    <div class="money">💵</div>
+    <div class="money">💰</div>
+    <div class="money">💵</div>
+    <div class="money">💰</div>
+
+    <!-- Main image -->
     <div class="image-container">
-        <img
-            class="ravi-image"
-            src="ravikishan.jpg"
-            alt="Money follows maah brothaaa"
-        >
+
+        <div class="image-wrapper">
+
+            <img
+                class="ravi-image"
+                src="ravikishan.jpg"
+                alt="Money follows maah brothaaa"
+            >
+
+        </div>
+
+    </div>
+
+    <!-- FAHH FAHH -->
+    <div class="fahhh">
+        FAHHH FAHHH 💥
     </div>
 
 </body>
