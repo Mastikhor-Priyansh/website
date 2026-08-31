@@ -7,6 +7,10 @@
     <title>Money Follows Maah</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
@@ -14,45 +18,54 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         h1 {
-            margin-top: 30px;
-            font-size: 40px;
+            margin: 25px 10px;
+            font-size: clamp(25px, 5vw, 45px);
+
+            animation: titleGlow 2s ease-in-out infinite alternate;
         }
 
         .image-container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 30px auto;
+            width: 100%;
+            padding: 10px 20px 40px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .ravi-image {
+            /* FULL IMAGE — NO CROPPING */
             width: 100%;
+            max-width: 1000px;
             height: auto;
+
             display: block;
+
             border-radius: 25px;
 
-            /* MAIN ANIMATION */
+            /* Animation */
             animation:
-                entrance 1.5s ease-out,
-                crazyPulse 2s ease-in-out 1.5s infinite,
+                entrance 1.3s ease-out,
+                pulse 2.5s ease-in-out 1.3s infinite,
                 glow 2s ease-in-out infinite alternate;
 
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
 
-        /* Image enters dramatically */
+        /* Entrance */
         @keyframes entrance {
             0% {
                 opacity: 0;
-                transform: scale(0.2) rotate(-15deg);
+                transform: scale(0.5) rotate(-8deg);
             }
 
-            60% {
+            70% {
                 opacity: 1;
-                transform: scale(1.08) rotate(5deg);
+                transform: scale(1.04) rotate(2deg);
             }
 
             100% {
@@ -60,49 +73,47 @@
             }
         }
 
-        /* Continuous funny zoom + shake */
-        @keyframes crazyPulse {
-            0% {
-                transform: scale(1) rotate(0deg);
-            }
-
-            25% {
-                transform: scale(1.03) rotate(-1deg);
+        /* Continuous animation */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
             }
 
             50% {
-                transform: scale(1.06) rotate(1deg);
-            }
-
-            75% {
-                transform: scale(1.03) rotate(-1deg);
-            }
-
-            100% {
-                transform: scale(1) rotate(0deg);
+                transform: scale(1.035);
             }
         }
 
-        /* Glowing border */
+        /* Glow */
         @keyframes glow {
             from {
                 box-shadow:
-                    0 0 10px gold,
-                    0 0 20px orange;
+                    0 0 10px gold;
             }
 
             to {
                 box-shadow:
-                    0 0 30px gold,
-                    0 0 70px orange,
-                    0 0 100px gold;
+                    0 0 25px gold,
+                    0 0 55px orange;
             }
         }
 
-        /* Extra effect on mouse hover */
+        /* Hover */
         .ravi-image:hover {
-            transform: scale(1.1) rotate(3deg);
-            cursor: pointer;
+            transform: scale(1.06) rotate(2deg);
+        }
+
+        /* Title animation */
+        @keyframes titleGlow {
+            from {
+                text-shadow: 0 0 5px white;
+            }
+
+            to {
+                text-shadow:
+                    0 0 15px gold,
+                    0 0 30px orange;
+            }
         }
     </style>
 </head>
