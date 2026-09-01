@@ -4,1005 +4,1153 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050505">
-<title>Keep Going</title>
+
+<title>The Journey</title>
 
 <style>
+
 /* =========================================================
    RESET
 ========================================================= */
+
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html,
 body {
-  width: 100%;
-  min-height: 100%;
+    width: 100%;
+    min-height: 100%;
 }
 
 body {
-  background: #050505;
-  color: #f5f5f2;
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  overflow-x: hidden;
+    background: #050505;
+    color: #f5f5f2;
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    overflow: hidden;
 }
 
 
 /* =========================================================
-   INTRO
+   GLOBAL
 ========================================================= */
-#motivationIntro {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
 
-  width: 100%;
-  height: 100svh;
-  min-height: 560px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-  isolation: isolate;
-
-  background:
-    radial-gradient(
-      circle at 50% 48%,
-      rgba(255,255,255,.055),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 15% 15%,
-      rgba(255,255,255,.025),
-      transparent 30%
-    ),
-    #050505;
-
-  transition:
-    opacity .75s cubic-bezier(.16,1,.3,1),
-    transform .75s cubic-bezier(.16,1,.3,1);
+button {
+    font-family: inherit;
 }
 
-#motivationIntro.intro-complete {
-  opacity: 0;
-  transform: scale(1.025);
-  pointer-events: none;
+button:focus-visible {
+    outline: 1px solid rgba(255,255,255,.65);
+    outline-offset: 5px;
 }
 
 
 /* =========================================================
-   BACKGROUND
+   PAGE 1
 ========================================================= */
-.intro-noise {
-  position: absolute;
-  inset: 0;
-  z-index: -4;
-  pointer-events: none;
-  opacity: .035;
 
-  background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+#pageOne {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+
+    width: 100%;
+    height: 100svh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(255,255,255,.055),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(255,255,255,.025),
+            transparent 30%
+        ),
+        #050505;
+
+    transition:
+        opacity .9s cubic-bezier(.16,1,.3,1),
+        transform .9s cubic-bezier(.16,1,.3,1);
 }
 
-.intro-orb {
-  position: absolute;
-  z-index: -3;
-
-  border-radius: 50%;
-  pointer-events: none;
-
-  filter: blur(90px);
-  opacity: .10;
-
-  will-change: transform;
+#pageOne.hide {
+    opacity: 0;
+    transform: scale(1.04);
+    pointer-events: none;
 }
 
-.orb-one {
-  width: 430px;
-  height: 430px;
-  top: -230px;
-  left: -180px;
-  background: #fff;
 
-  animation: orbOne 14s ease-in-out infinite alternate;
+/* =========================================================
+   BACKGROUND GRAIN
+========================================================= */
+
+.noise {
+    position: absolute;
+    inset: 0;
+
+    opacity: .035;
+
+    pointer-events: none;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.orb-two {
-  width: 360px;
-  height: 360px;
-  right: -160px;
-  bottom: -190px;
-  background: #999;
 
-  animation: orbTwo 17s ease-in-out infinite alternate;
+/* =========================================================
+   AMBIENT LIGHT
+========================================================= */
+
+.ambient {
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    filter: blur(100px);
+
+    opacity: .09;
+
+    will-change: transform;
 }
 
-@keyframes orbOne {
-  from {
-    transform: translate3d(0,0,0);
-  }
-  to {
-    transform: translate3d(70px,45px,0);
-  }
+.ambient.one {
+    width: 430px;
+    height: 430px;
+
+    top: -220px;
+    left: -180px;
+
+    background: #fff;
+
+    animation:
+        ambientOne 14s ease-in-out infinite alternate;
 }
 
-@keyframes orbTwo {
-  from {
-    transform: translate3d(0,0,0);
-  }
-  to {
-    transform: translate3d(-55px,-45px,0);
-  }
+.ambient.two {
+    width: 380px;
+    height: 380px;
+
+    right: -180px;
+    bottom: -200px;
+
+    background: #aaa;
+
+    animation:
+        ambientTwo 17s ease-in-out infinite alternate;
+}
+
+@keyframes ambientOne {
+
+    from {
+        transform: translate3d(0,0,0);
+    }
+
+    to {
+        transform: translate3d(70px,45px,0);
+    }
+
+}
+
+@keyframes ambientTwo {
+
+    from {
+        transform: translate3d(0,0,0);
+    }
+
+    to {
+        transform: translate3d(-60px,-40px,0);
+    }
+
 }
 
 
 /* =========================================================
    PARTICLES
 ========================================================= */
+
 #particles {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: -1;
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
 }
 
 .particle {
-  position: absolute;
+    position: absolute;
 
-  width: 2px;
-  height: 2px;
+    width: 2px;
+    height: 2px;
 
-  border-radius: 50%;
-  background: rgba(255,255,255,.45);
+    border-radius: 50%;
 
-  animation:
-    particleFloat linear infinite;
+    background: rgba(255,255,255,.4);
 
-  will-change: transform, opacity;
+    animation:
+        particleMove linear infinite;
+
+    will-change: transform, opacity;
 }
 
-@keyframes particleFloat {
-  0% {
-    transform: translate3d(0,35px,0);
-    opacity: 0;
-  }
+@keyframes particleMove {
 
-  20% {
-    opacity: .5;
-  }
+    0% {
+        transform: translate3d(0,35px,0);
+        opacity: 0;
+    }
 
-  80% {
-    opacity: .25;
-  }
+    20% {
+        opacity: .5;
+    }
 
-  100% {
-    transform: translate3d(0,-120px,0);
-    opacity: 0;
-  }
-}
+    80% {
+        opacity: .25;
+    }
 
+    100% {
+        transform: translate3d(0,-120px,0);
+        opacity: 0;
+    }
 
-/* =========================================================
-   TOP PROGRESS
-========================================================= */
-.story-progress {
-  position: absolute;
-
-  top: 28px;
-  left: 50%;
-
-  width: min(330px,55vw);
-  height: 1px;
-
-  transform: translateX(-50%);
-
-  background: rgba(255,255,255,.12);
-}
-
-#storyProgress {
-  display: block;
-
-  width: 12.5%;
-  height: 100%;
-
-  background: rgba(255,255,255,.9);
-
-  transition:
-    width .8s cubic-bezier(.16,1,.3,1);
 }
 
 
 /* =========================================================
-   STORY
+   PROGRESS BAR
 ========================================================= */
+
+.progress {
+    position: absolute;
+
+    top: 28px;
+    left: 50%;
+
+    width: min(330px,55vw);
+    height: 1px;
+
+    transform: translateX(-50%);
+
+    background: rgba(255,255,255,.12);
+}
+
+.progress span {
+    display: block;
+
+    width: 12.5%;
+    height: 100%;
+
+    background: rgba(255,255,255,.9);
+
+    transition:
+        width .8s cubic-bezier(.16,1,.3,1);
+}
+
+
+/* =========================================================
+   STORY CONTAINER
+========================================================= */
+
 .story-container {
-  position: relative;
+    position: relative;
 
-  width: min(1100px, calc(100% - 40px));
+    width: min(1100px, calc(100% - 40px));
 
-  text-align: center;
+    text-align: center;
 }
 
 .story-counter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 13px;
+    display: flex;
 
-  margin-bottom: 34px;
+    align-items: center;
+    justify-content: center;
 
-  color: rgba(255,255,255,.38);
+    gap: 13px;
 
-  font-size: 10px;
-  font-weight: 600;
+    margin-bottom: 35px;
 
-  letter-spacing: .25em;
+    color: rgba(255,255,255,.38);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: .25em;
 }
 
 .counter-line {
-  width: 42px;
-  height: 1px;
-  background: rgba(255,255,255,.18);
+    width: 42px;
+    height: 1px;
+
+    background: rgba(255,255,255,.18);
 }
 
-.story-content {
-  min-height: 330px;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* =========================================================
+   STORY CONTENT
+========================================================= */
+
+.story-content {
+    min-height: 330px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
 }
 
 .story-label {
-  margin-bottom: 25px;
+    margin-bottom: 25px;
 
-  color: rgba(255,255,255,.42);
+    color: rgba(255,255,255,.42);
 
-  font-size: 10px;
-  font-weight: 700;
+    font-size: 10px;
+    font-weight: 700;
 
-  letter-spacing: .34em;
+    letter-spacing: .34em;
 }
 
 #storyText {
-  max-width: 1000px;
+    max-width: 1000px;
 
-  color: #f5f5f2;
+    font-size:
+        clamp(43px, 7vw, 94px);
 
-  font-size: clamp(43px, 7vw, 94px);
-  font-weight: 700;
+    line-height: .98;
 
-  line-height: .98;
-  letter-spacing: -.06em;
+    font-weight: 700;
 
-  text-wrap: balance;
+    letter-spacing: -.06em;
+
+    text-wrap: balance;
 }
 
 #storySubtext {
-  max-width: 650px;
+    max-width: 650px;
 
-  margin-top: 28px;
+    margin-top: 28px;
 
-  color: #8d8d89;
+    color: #8d8d89;
 
-  font-size: clamp(14px, 1.5vw, 19px);
-  line-height: 1.7;
+    font-size:
+        clamp(14px,1.5vw,19px);
 
-  text-wrap: balance;
+    line-height: 1.7;
+
+    text-wrap: balance;
 }
 
 
 /* =========================================================
-   STORY ANIMATION
+   STORY ANIMATIONS
 ========================================================= */
+
 .story-enter {
-  animation:
-    storyEnter .8s cubic-bezier(.16,1,.3,1) both;
+    animation:
+        storyEnter .8s cubic-bezier(.16,1,.3,1) both;
 }
 
 .story-exit {
-  animation:
-    storyExit .42s cubic-bezier(.4,0,1,1) both;
+    animation:
+        storyExit .42s cubic-bezier(.4,0,1,1) both;
 }
 
 @keyframes storyEnter {
-  from {
-    opacity: 0;
-    transform:
-      translate3d(0,35px,0)
-      scale(.97);
 
-    filter: blur(9px);
-  }
+    from {
+        opacity: 0;
 
-  to {
-    opacity: 1;
-    transform:
-      translate3d(0,0,0)
-      scale(1);
+        transform:
+            translate3d(0,35px,0)
+            scale(.97);
 
-    filter: blur(0);
-  }
+        filter: blur(9px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translate3d(0,0,0)
+            scale(1);
+
+        filter: blur(0);
+    }
+
 }
 
 @keyframes storyExit {
-  from {
-    opacity: 1;
-    transform: translate3d(0,0,0);
-    filter: blur(0);
-  }
 
-  to {
-    opacity: 0;
-    transform: translate3d(0,-24px,0);
-    filter: blur(8px);
-  }
+    from {
+        opacity: 1;
+
+        transform:
+            translate3d(0,0,0);
+
+        filter: blur(0);
+    }
+
+    to {
+        opacity: 0;
+
+        transform:
+            translate3d(0,-25px,0);
+
+        filter: blur(8px);
+    }
+
 }
 
 
 /* =========================================================
-   CONTINUE BUTTON
+   NEXT BUTTON
 ========================================================= */
-#storyNext {
-  margin-top: 28px;
 
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
+#nextButton {
+    margin-top: 28px;
 
-  padding: 13px 21px;
+    display: inline-flex;
 
-  border:
-    1px solid rgba(255,255,255,.13);
+    align-items: center;
+    justify-content: center;
 
-  border-radius: 999px;
+    gap: 15px;
 
-  background: rgba(255,255,255,.035);
+    min-width: 145px;
+    height: 50px;
 
-  color: #fff;
+    padding: 0 22px;
 
-  font-family: inherit;
-  font-size: 10px;
-  font-weight: 700;
+    border:
+        1px solid rgba(255,255,255,.16);
 
-  letter-spacing: .2em;
+    border-radius: 999px;
 
-  cursor: pointer;
+    background:
+        rgba(255,255,255,.035);
 
-  transition:
-    transform .3s cubic-bezier(.16,1,.3,1),
-    background .3s ease,
-    border-color .3s ease;
+    color: white;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: .22em;
+
+    cursor: pointer;
+
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        background .35s ease,
+        border-color .35s ease;
 }
 
-#storyNext:hover {
-  transform: translateY(-3px);
+#nextButton:hover {
 
-  background: rgba(255,255,255,.075);
+    transform:
+        translateY(-4px)
+        scale(1.025);
 
-  border-color:
-    rgba(255,255,255,.3);
+    background:
+        rgba(255,255,255,.08);
+
+    border-color:
+        rgba(255,255,255,.35);
 }
 
-#storyNext:active {
-  transform: scale(.96);
+#nextButton:active {
+
+    transform:
+        scale(.95);
 }
 
 .next-arrow {
-  font-size: 16px;
 
-  transition:
-    transform .3s ease;
+    font-size: 17px;
+
+    transition:
+        transform .35s ease;
 }
 
-#storyNext:hover .next-arrow {
-  transform: translateY(3px);
-}
+#nextButton:hover .next-arrow {
 
-
-/* =========================================================
-   FINAL VERIFICATION SCREEN
-========================================================= */
-#verificationArea {
-  position: absolute;
-  inset: 0;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-
-  transform:
-    translate3d(0,30px,0)
-    scale(.98);
-
-  transition:
-    opacity .8s ease,
-    transform .8s cubic-bezier(.16,1,.3,1),
-    visibility 0s linear .8s;
-}
-
-#verificationArea.active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-
-  transform:
-    translate3d(0,0,0)
-    scale(1);
-
-  transition:
-    opacity .8s ease,
-    transform .8s cubic-bezier(.16,1,.3,1);
-}
-
-.final-eyebrow {
-  margin-bottom: 21px;
-
-  color: rgba(255,255,255,.4);
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: .34em;
-}
-
-#verificationArea h2 {
-  margin-bottom: 40px;
-
-  color: #f5f5f2;
-
-  font-size: clamp(48px,7vw,88px);
-  line-height: .94;
-
-  letter-spacing: -.06em;
-}
-
-#verificationArea h2 span {
-  color: rgba(255,255,255,.38);
+    transform:
+        translateX(4px);
 }
 
 
 /* =========================================================
-   HAMSTER BUTTON
+   PAGE 2
 ========================================================= */
-#hamsterVerify {
-  position: relative;
 
-  min-width: 270px;
-  height: 62px;
+#pageTwo {
+    position: fixed;
+    inset: 0;
 
-  padding: 0 22px;
+    z-index: 5;
 
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
+    width: 100%;
+    height: 100svh;
 
-  overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  border:
-    1px solid rgba(255,255,255,.18);
+    overflow: hidden;
 
-  border-radius: 999px;
+    opacity: 0;
 
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.12),
-      rgba(255,255,255,.035)
-    );
+    transform:
+        scale(1.06);
 
-  color: #fff;
+    pointer-events: none;
 
-  font-family: inherit;
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(255,255,255,.07),
+            transparent 30%
+        ),
+        #030303;
 
-  cursor: pointer;
-
-  box-shadow:
-    0 20px 55px rgba(0,0,0,.4),
-    inset 0 1px 0 rgba(255,255,255,.1);
-
-  transition:
-    transform .35s cubic-bezier(.16,1,.3,1),
-    border-color .35s ease;
+    transition:
+        opacity 1s cubic-bezier(.16,1,.3,1),
+        transform 1.1s cubic-bezier(.16,1,.3,1);
 }
 
-#hamsterVerify:hover {
-  transform:
-    translate3d(0,-4px,0)
-    scale(1.025);
+#pageTwo.active {
 
-  border-color:
-    rgba(255,255,255,.4);
-}
+    opacity: 1;
 
-#hamsterVerify:active {
-  transform: scale(.96);
-}
+    transform:
+        scale(1);
 
-.hamster-icon {
-  position: relative;
-  z-index: 2;
-
-  font-size: 21px;
-
-  transition:
-    transform .35s cubic-bezier(.16,1,.3,1);
-}
-
-#hamsterVerify:hover .hamster-icon {
-  transform:
-    rotate(-8deg)
-    scale(1.13);
-}
-
-.button-text {
-  position: relative;
-  z-index: 2;
-
-  font-size: 10px;
-  font-weight: 800;
-
-  letter-spacing: .2em;
-}
-
-.button-arrow {
-  position: relative;
-  z-index: 2;
-
-  font-size: 18px;
-
-  transition:
-    transform .35s ease;
-}
-
-#hamsterVerify:hover .button-arrow {
-  transform:
-    translate3d(3px,-3px,0);
-}
-
-.button-shine {
-  position: absolute;
-
-  top: 0;
-  left: -100%;
-
-  width: 45%;
-  height: 100%;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.18),
-      transparent
-    );
-
-  transform: skewX(-20deg);
-
-  transition:
-    left .7s ease;
-}
-
-#hamsterVerify:hover .button-shine {
-  left: 150%;
+    pointer-events: auto;
 }
 
 
 /* =========================================================
-   ENTER WEBSITE
+   PAGE 2 LIGHT
 ========================================================= */
-#enterWebsite {
-  margin-top: 22px;
 
-  border: 0;
+.page-two-light {
+    position: absolute;
 
-  background: transparent;
+    width: 650px;
+    height: 650px;
 
-  color: rgba(255,255,255,.35);
+    border-radius: 50%;
 
-  font-family: inherit;
-  font-size: 10px;
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.1),
+            transparent 65%
+        );
 
-  letter-spacing: .18em;
+    filter: blur(25px);
 
-  cursor: pointer;
-
-  transition:
-    color .25s ease;
+    animation:
+        slowPulse 5s ease-in-out infinite alternate;
 }
 
-#enterWebsite:hover {
-  color: #fff;
+@keyframes slowPulse {
+
+    from {
+        transform: scale(.85);
+        opacity: .55;
+    }
+
+    to {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
 }
 
 
 /* =========================================================
-   MODAL
+   PAGE 2 CONTENT
 ========================================================= */
-#hamsterModal {
-  position: fixed;
-  inset: 0;
 
-  z-index: 20000;
+.page-two-content {
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    position: relative;
+    z-index: 2;
 
-  padding: 24px;
+    text-align: center;
 
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+    opacity: 0;
 
-  transition:
-    opacity .45s ease,
-    visibility 0s linear .45s;
+    transform:
+        translateY(30px);
+
+    transition:
+        opacity .9s ease .35s,
+        transform .9s cubic-bezier(.16,1,.3,1) .35s;
 }
 
-#hamsterModal.active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+#pageTwo.active .page-two-content {
 
-  transition:
-    opacity .45s ease;
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+.page-two-label {
+
+    margin-bottom: 20px;
+
+    color:
+        rgba(255,255,255,.4);
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: .35em;
+}
+
+.page-two-content h2 {
+
+    font-size:
+        clamp(48px,8vw,105px);
+
+    line-height: .92;
+
+    letter-spacing: -.065em;
+
+    margin-bottom: 20px;
+}
+
+.page-two-content h2 span {
+
+    color:
+        rgba(255,255,255,.38);
+}
+
+.page-two-content p {
+
+    color:
+        rgba(255,255,255,.45);
+
+    font-size: 14px;
+
+    letter-spacing: .03em;
 }
 
 
 /* =========================================================
-   MODAL BACKDROP
+   REVEAL STATUS
 ========================================================= */
-.modal-backdrop {
-  position: absolute;
-  inset: 0;
 
-  background:
-    rgba(0,0,0,.84);
+.reveal-status {
 
-  backdrop-filter:
-    blur(18px);
+    margin-top: 35px;
 
-  -webkit-backdrop-filter:
-    blur(18px);
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    color:
+        rgba(255,255,255,.35);
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: .2em;
 }
 
-.modal-glow {
-  position: absolute;
+.status-dot {
 
-  width: min(75vw,700px);
-  height: min(75vw,700px);
+    width: 6px;
+    height: 6px;
 
-  border-radius: 50%;
+    border-radius: 50%;
 
-  background:
-    rgba(255,255,255,.07);
+    background: white;
 
-  filter: blur(100px);
+    box-shadow:
+        0 0 15px rgba(255,255,255,.8);
 
-  opacity: 0;
-
-  transition:
-    opacity .7s ease;
+    animation:
+        statusPulse 1.4s ease-in-out infinite;
 }
 
-#hamsterModal.active .modal-glow {
-  opacity: 1;
+@keyframes statusPulse {
+
+    0%,
+    100% {
+        opacity: .3;
+        transform: scale(.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
 }
 
 
 /* =========================================================
-   MODAL CARD
+   IMAGE POPUP
 ========================================================= */
-.modal-card {
-  position: relative;
-  z-index: 2;
 
-  max-width: min(650px,94vw);
-  max-height: 94vh;
+#imagePopup {
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    position: fixed;
+    inset: 0;
 
-  opacity: 0;
+    z-index: 50000;
 
-  transform:
-    translate3d(0,35px,0)
-    scale(.82);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  filter: blur(12px);
+    padding: 25px;
 
-  transition:
-    opacity .5s ease,
-    transform .7s cubic-bezier(.16,1,.3,1),
-    filter .7s ease;
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity .6s ease,
+        visibility 0s linear .6s;
 }
 
-#hamsterModal.active .modal-card {
-  opacity: 1;
+#imagePopup.active {
 
-  transform:
-    translate3d(0,0,0)
-    scale(1);
+    opacity: 1;
 
-  filter: blur(0);
+    visibility: visible;
+
+    pointer-events: auto;
+
+    transition:
+        opacity .6s ease;
+}
+
+
+/* =========================================================
+   POPUP BACKDROP
+========================================================= */
+
+.popup-backdrop {
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        rgba(0,0,0,.88);
+
+    backdrop-filter:
+        blur(22px);
+
+    -webkit-backdrop-filter:
+        blur(22px);
+}
+
+
+/* =========================================================
+   POPUP GLOW
+========================================================= */
+
+.popup-glow {
+
+    position: absolute;
+
+    width:
+        min(80vw,750px);
+
+    height:
+        min(80vw,750px);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.13),
+            transparent 68%
+        );
+
+    filter:
+        blur(45px);
+
+    opacity: 0;
+
+    transform:
+        scale(.7);
+
+    transition:
+        opacity .9s ease,
+        transform 1s cubic-bezier(.16,1,.3,1);
+}
+
+#imagePopup.active .popup-glow {
+
+    opacity: 1;
+
+    transform:
+        scale(1);
+}
+
+
+/* =========================================================
+   POPUP CARD
+========================================================= */
+
+.popup-card {
+
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    max-width:
+        min(680px,94vw);
+
+    opacity: 0;
+
+    transform:
+        translate3d(0,50px,0)
+        scale(.72)
+        rotateX(8deg);
+
+    filter:
+        blur(16px);
+
+    transition:
+        opacity .55s ease,
+        transform .9s cubic-bezier(.16,1,.3,1),
+        filter .9s ease;
+}
+
+#imagePopup.active .popup-card {
+
+    opacity: 1;
+
+    transform:
+        translate3d(0,0,0)
+        scale(1)
+        rotateX(0);
+
+    filter:
+        blur(0);
 }
 
 
 /* =========================================================
    CLOSE BUTTON
 ========================================================= */
-#closeHamster {
-  position: absolute;
 
-  top: -17px;
-  right: -17px;
+#closePopup {
 
-  z-index: 20;
+    position: absolute;
 
-  width: 43px;
-  height: 43px;
+    top: -18px;
+    right: -18px;
 
-  display: grid;
-  place-items: center;
+    z-index: 10;
 
-  border:
-    1px solid rgba(255,255,255,.18);
+    width: 44px;
+    height: 44px;
 
-  border-radius: 50%;
+    display: grid;
+    place-items: center;
 
-  background:
-    rgba(15,15,15,.92);
+    border:
+        1px solid rgba(255,255,255,.2);
 
-  color: white;
+    border-radius: 50%;
 
-  font-family: inherit;
-  font-size: 25px;
-  font-weight: 300;
+    background:
+        rgba(15,15,15,.95);
 
-  cursor: pointer;
+    color: white;
 
-  transition:
-    transform .3s ease,
-    background .3s ease;
+    font-size: 25px;
+    font-weight: 300;
+
+    cursor: pointer;
+
+    transition:
+        transform .3s ease,
+        background .3s ease;
 }
 
-#closeHamster:hover {
-  transform:
-    rotate(90deg)
-    scale(1.08);
+#closePopup:hover {
 
-  background:
-    rgba(255,255,255,.12);
-}
+    transform:
+        rotate(90deg)
+        scale(1.08);
 
-
-/* =========================================================
-   VERIFIED BADGE
-========================================================= */
-.verification-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  margin-bottom: 15px;
-
-  color: rgba(255,255,255,.52);
-
-  font-size: 9px;
-  font-weight: 800;
-
-  letter-spacing: .27em;
-}
-
-.verification-badge span {
-  width: 6px;
-  height: 6px;
-
-  border-radius: 50%;
-
-  background: white;
-
-  box-shadow:
-    0 0 15px rgba(255,255,255,.8);
+    background:
+        rgba(255,255,255,.12);
 }
 
 
 /* =========================================================
-   IMAGE
+   VERIFIED LABEL
 ========================================================= */
-.image-wrapper {
-  position: relative;
 
-  max-width: 100%;
-  max-height: 72vh;
+.verified-label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 15px;
+
+    color:
+        rgba(255,255,255,.55);
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: .28em;
 }
 
-.image-glow {
-  position: absolute;
-  inset: 5%;
+.verified-label span {
 
-  z-index: -1;
+    width: 6px;
+    height: 6px;
 
-  background:
-    rgba(255,255,255,.11);
+    border-radius: 50%;
 
-  filter: blur(45px);
-}
+    background: white;
 
-.hamster-image {
-  display: block;
-
-  width: auto;
-  height: auto;
-
-  max-width: min(600px,88vw);
-  max-height: 68vh;
-
-  object-fit: contain;
-
-  border-radius: 18px;
-
-  box-shadow:
-    0 35px 100px rgba(0,0,0,.8),
-    0 0 0 1px rgba(255,255,255,.12);
-
-  user-select: none;
+    box-shadow:
+        0 0 16px rgba(255,255,255,.9);
 }
 
 
 /* =========================================================
-   VERIFICATION TEXT
+   IMAGE FRAME
 ========================================================= */
-.verification-result {
-  margin-top: 20px;
 
-  text-align: center;
+.image-frame {
+
+    position: relative;
+
+    max-width: 100%;
 }
 
-.result-title {
-  color: #fff;
+.image-frame::before {
 
-  font-size: 11px;
-  font-weight: 800;
+    content: "";
 
-  letter-spacing: .28em;
+    position: absolute;
+
+    inset: -1px;
+
+    border-radius: 20px;
+
+    border:
+        1px solid rgba(255,255,255,.14);
+
+    pointer-events: none;
+
+    z-index: 3;
 }
 
-.result-subtitle {
-  margin-top: 7px;
+.image-frame::after {
 
-  color: rgba(255,255,255,.42);
+    content: "";
 
-  font-size: 13px;
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 20px;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.08),
+            transparent 25%,
+            transparent 75%,
+            rgba(255,255,255,.03)
+        );
+
+    z-index: 2;
+}
+
+#popupImage {
+
+    display: block;
+
+    width: auto;
+    height: auto;
+
+    max-width:
+        min(620px,88vw);
+
+    max-height:
+        70vh;
+
+    object-fit: contain;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 40px 120px rgba(0,0,0,.8),
+        0 0 60px rgba(255,255,255,.04);
+
+    user-select: none;
+
+    animation:
+        imageFloat 6s ease-in-out infinite;
+}
+
+@keyframes imageFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-6px);
+    }
+
 }
 
 
 /* =========================================================
-   EXISTING WEBSITE EXAMPLE
-   Replace this section with your existing website.
+   POPUP CAPTION
 ========================================================= */
-#existingWebsite {
-  min-height: 100vh;
 
-  display: grid;
-  place-items: center;
+.popup-caption {
 
-  background: #0a0a0a;
+    margin-top: 20px;
 
-  color: white;
-
-  text-align: center;
+    text-align: center;
 }
 
-#existingWebsite h1 {
-  font-size: clamp(40px,7vw,80px);
-  letter-spacing: -.05em;
+.popup-title {
+
+    color: white;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: .28em;
+}
+
+.popup-subtitle {
+
+    margin-top: 8px;
+
+    color:
+        rgba(255,255,255,.4);
+
+    font-size: 13px;
 }
 
 
 /* =========================================================
    MOBILE
 ========================================================= */
+
 @media (max-width: 600px) {
 
-  #motivationIntro {
-    min-height: 520px;
-  }
+    .story-container {
+        width:
+            calc(100% - 28px);
+    }
 
-  .story-container {
-    width: calc(100% - 30px);
-  }
+    .story-content {
+        min-height: 290px;
+    }
 
-  .story-content {
-    min-height: 290px;
-  }
+    #storyText {
+        font-size:
+            clamp(39px,12vw,58px);
+    }
 
-  #storyText {
-    font-size: clamp(39px,12vw,58px);
-  }
+    #storySubtext {
+        max-width: 340px;
+        font-size: 14px;
+    }
 
-  #storySubtext {
-    max-width: 340px;
-    font-size: 14px;
-  }
+    .story-label {
+        font-size: 9px;
+    }
 
-  .story-label {
-    font-size: 9px;
-  }
+    .page-two-content h2 {
+        font-size: 51px;
+    }
 
-  #verificationArea h2 {
-    font-size: 49px;
-  }
+    #popupImage {
+        max-width: 88vw;
+        max-height: 66vh;
+        border-radius: 15px;
+    }
 
-  #hamsterVerify {
-    width: min(290px,90vw);
-  }
+    #closePopup {
+        top: -12px;
+        right: -4px;
+    }
 
-  .modal-card {
-    max-width: 94vw;
-  }
+    .popup-card {
+        max-width: 94vw;
+    }
 
-  .hamster-image {
-    max-width: 88vw;
-    max-height: 65vh;
-    border-radius: 14px;
-  }
-
-  #closeHamster {
-    top: -12px;
-    right: -5px;
-  }
-
-  .orb-one {
-    width: 280px;
-    height: 280px;
-  }
-
-  .orb-two {
-    width: 240px;
-    height: 240px;
-  }
 }
 
 
 /* =========================================================
-   ACCESSIBILITY / REDUCED MOTION
+   REDUCED MOTION
 ========================================================= */
+
 @media (prefers-reduced-motion: reduce) {
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
-  }
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
 }
+
 </style>
 </head>
 
@@ -1011,694 +1159,667 @@ body {
 
 
 <!-- =======================================================
-     CINEMATIC MOTIVATIONAL INTRO
+     PAGE 1 — MOTIVATIONAL STORY
 ======================================================= -->
 
-<section id="motivationIntro">
+<section id="pageOne">
 
-  <div class="intro-noise"></div>
+    <div class="noise"></div>
 
-  <div class="intro-orb orb-one"></div>
-  <div class="intro-orb orb-two"></div>
+    <div class="ambient one"></div>
+    <div class="ambient two"></div>
 
-  <div id="particles"></div>
-
-
-  <!-- Progress -->
-  <div class="story-progress">
-    <span id="storyProgress"></span>
-  </div>
+    <div id="particles"></div>
 
 
-  <!-- Story -->
-  <main class="story-container">
-
-    <div class="story-counter">
-      <span id="storyNumber">01</span>
-
-      <span class="counter-line"></span>
-
-      <span>08</span>
+    <!-- Progress -->
+    <div class="progress">
+        <span id="progressBar"></span>
     </div>
 
 
-    <div
-      id="storyContent"
-      class="story-content story-enter"
-    >
-
-      <div
-        id="storyLabel"
-        class="story-label"
-      >
-        THE BEGINNING
-      </div>
-
-      <h1 id="storyText">
-        Everyone sees the destination.
-      </h1>
-
-      <p id="storySubtext">
-        Almost nobody sees the nights that built it.
-      </p>
-
-    </div>
+    <main class="story-container">
 
 
-    <button
-      id="storyNext"
-      type="button"
-    >
-      <span>CONTINUE</span>
+        <!-- Counter -->
+        <div class="story-counter">
 
-      <span class="next-arrow">
-        ↓
-      </span>
-    </button>
+            <span id="storyNumber">
+                01
+            </span>
 
-  </main>
+            <span class="counter-line"></span>
 
+            <span>
+                08
+            </span>
 
-  <!-- =====================================================
-       FINAL VERIFICATION
-  ====================================================== -->
-
-  <div id="verificationArea">
-
-    <div class="final-eyebrow">
-      YOU MADE IT THIS FAR
-    </div>
-
-    <h2>
-      Now prove<br>
-      <span>you're different.</span>
-    </h2>
+        </div>
 
 
-    <button
-      id="hamsterVerify"
-      type="button"
-    >
+        <!-- Story -->
+        <div
+            id="storyContent"
+            class="story-content story-enter"
+        >
 
-      <span class="button-shine"></span>
-
-      <span class="hamster-icon">
-        🐹
-      </span>
-
-      <span class="button-text">
-        VERIFY AS HAMSTER
-      </span>
-
-      <span class="button-arrow">
-        ↗
-      </span>
-
-    </button>
+            <div
+                id="storyLabel"
+                class="story-label"
+            >
+                THE BEGINNING
+            </div>
 
 
-    <button
-      id="enterWebsite"
-      type="button"
-    >
-      ENTER WEBSITE
-    </button>
+            <h1 id="storyText">
+                Everyone sees the destination.
+            </h1>
 
-  </div>
+
+            <p id="storySubtext">
+                Almost nobody sees the nights that built it.
+            </p>
+
+        </div>
+
+
+        <!-- NEXT -->
+        <button
+            id="nextButton"
+            type="button"
+        >
+
+            <span>
+                NEXT
+            </span>
+
+            <span class="next-arrow">
+                →
+            </span>
+
+        </button>
+
+    </main>
 
 </section>
 
 
 
 <!-- =======================================================
-     HAMSTER MODAL
+     PAGE 2 — CINEMATIC REVEAL
 ======================================================= -->
 
-<div
-  id="hamsterModal"
-  aria-hidden="true"
->
-
-  <div class="modal-backdrop"></div>
-
-  <div class="modal-glow"></div>
+<section id="pageTwo">
 
 
-  <div
-    class="modal-card"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Hamster verification"
-  >
+    <div class="noise"></div>
 
-    <button
-      id="closeHamster"
-      type="button"
-      aria-label="Close verification"
-    >
-      ×
-    </button>
+    <div class="page-two-light"></div>
 
 
-    <div class="verification-badge">
+    <div class="page-two-content">
 
-      <span></span>
-
-      VERIFIED
-
-    </div>
+        <div class="page-two-label">
+            THE REVEAL
+        </div>
 
 
-    <div class="image-wrapper">
+        <h2>
+            You kept<br>
+            <span>going.</span>
+        </h2>
 
-      <div class="image-glow"></div>
 
-      <!--
-        IMPORTANT:
-        Keep ravikishan(1).jpg in the same folder
-        as this HTML file.
-      -->
+        <p>
+            And that's what makes the difference.
+        </p>
 
-      <img
-        class="hamster-image"
-        src="ravikishan(1).jpg"
-        alt="Hamster verification"
-      >
+
+        <div class="reveal-status">
+
+            <span class="status-dot"></span>
+
+            REVEALING SOMETHING SPECIAL
+
+        </div>
 
     </div>
 
-
-    <div class="verification-result">
-
-      <div class="result-title">
-        VERIFICATION COMPLETE
-      </div>
-
-      <div class="result-subtitle">
-        🐹 Certified Hamster.
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
+</section>
 
 
 
 <!-- =======================================================
-     YOUR EXISTING WEBSITE
-     
-     IMPORTANT:
-     Replace ONLY this demo section with your existing
-     website code. Do NOT delete your existing application.
+     IMAGE POPUP
 ======================================================= -->
 
-<div id="existingWebsite">
+<div
+    id="imagePopup"
+    aria-hidden="true"
+>
 
-  <div>
 
-    <h1>
-      Your Existing Website
-    </h1>
+    <div class="popup-backdrop"></div>
 
-    <p style="
-      margin-top:20px;
-      color:#777;
-    ">
-      Replace this demo section with your existing website.
-    </p>
 
-  </div>
+    <div class="popup-glow"></div>
+
+
+    <div
+        class="popup-card"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Special reveal"
+    >
+
+
+        <!-- Close -->
+        <button
+            id="closePopup"
+            type="button"
+            aria-label="Close"
+        >
+            ×
+        </button>
+
+
+        <!-- Verified -->
+        <div class="verified-label">
+
+            <span></span>
+
+            SPECIAL REVEAL
+
+        </div>
+
+
+        <!-- Image -->
+        <div class="image-frame">
+
+            <!--
+                IMPORTANT:
+                Keep ravikishan.jpg in the same folder
+                as this HTML file.
+            -->
+
+            <img
+                id="popupImage"
+                src="ravikishan.jpg"
+                alt="Special reveal"
+            >
+
+        </div>
+
+
+        <!-- Caption -->
+        <div class="popup-caption">
+
+            <div class="popup-title">
+                THE MOMENT
+            </div>
+
+            <div class="popup-subtitle">
+                Some things are worth revealing.
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
 
 
 <script>
+
 /* =========================================================
-   CINEMATIC MOTIVATIONAL EXPERIENCE
+   CINEMATIC STORY SYSTEM
 ========================================================= */
 
 (() => {
 
-  "use strict";
+    "use strict";
 
 
-  /* =======================================================
-     STORY CONTENT
-  ======================================================= */
+    /* =====================================================
+       STORY DATA
+    ===================================================== */
 
-  const stories = [
+    const stories = [
 
-    {
-      label: "THE BEGINNING",
-      title: "Everyone sees the destination.",
-      sub:
-        "Almost nobody sees the nights that built it."
-    },
+        {
+            label: "THE BEGINNING",
 
-    {
-      label: "THE START",
-      title: "You begin with almost nothing.",
-      sub:
-        "No applause. No shortcuts. Just the courage to start."
-    },
+            title:
+                "Everyone sees the destination.",
 
-    {
-      label: "THE DOUBT",
-      title: "Then people start questioning you.",
-      sub:
-        "They doubt your idea. Then they doubt you."
-    },
+            sub:
+                "Almost nobody sees the nights that built it."
+        },
 
-    {
-      label: "THE FALL",
-      title: "You will fail.",
-      sub:
-        "Sometimes harder than you ever expected."
-    },
+        {
+            label: "THE START",
 
-    {
-      label: "THE CHOICE",
-      title: "But falling is not the ending.",
-      sub:
-        "The real story begins when you decide to stand again."
-    },
+            title:
+                "You begin with almost nothing.",
 
-    {
-      label: "THE DISCIPLINE",
-      title: "You keep moving without motivation.",
-      sub:
-        "Because discipline carries you when motivation disappears."
-    },
+            sub:
+                "No applause. No shortcuts. Just the courage to start."
+        },
 
-    {
-      label: "THE RESULT",
-      title: "One day, the impossible looks obvious.",
-      sub:
-        "Not because life became easier. Because you became stronger."
-    },
+        {
+            label: "THE DOUBT",
 
-    {
-      label: "THE FUTURE",
-      title: "Build quietly. Let the result speak.",
-      sub:
-        "Your future self is counting on what you do today."
+            title:
+                "Then people start questioning you.",
+
+            sub:
+                "They doubt your idea. Then they doubt you."
+        },
+
+        {
+            label: "THE FALL",
+
+            title:
+                "You will fail.",
+
+            sub:
+                "Sometimes harder than you ever expected."
+        },
+
+        {
+            label: "THE CHOICE",
+
+            title:
+                "But falling is not the ending.",
+
+            sub:
+                "The real story begins when you decide to stand again."
+        },
+
+        {
+            label: "THE DISCIPLINE",
+
+            title:
+                "You keep moving without motivation.",
+
+            sub:
+                "Because discipline carries you when motivation disappears."
+        },
+
+        {
+            label: "THE RESULT",
+
+            title:
+                "One day, the impossible looks obvious.",
+
+            sub:
+                "Not because life became easier. Because you became stronger."
+        },
+
+        {
+            label: "THE FUTURE",
+
+            title:
+                "Build quietly. Let the result speak.",
+
+            sub:
+                "Your future self is counting on what you do today."
+        }
+
+    ];
+
+
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const pageOne =
+        document.getElementById("pageOne");
+
+    const pageTwo =
+        document.getElementById("pageTwo");
+
+    const storyContent =
+        document.getElementById("storyContent");
+
+    const storyNumber =
+        document.getElementById("storyNumber");
+
+    const storyLabel =
+        document.getElementById("storyLabel");
+
+    const storyText =
+        document.getElementById("storyText");
+
+    const storySubtext =
+        document.getElementById("storySubtext");
+
+    const progressBar =
+        document.getElementById("progressBar");
+
+    const nextButton =
+        document.getElementById("nextButton");
+
+    const particles =
+        document.getElementById("particles");
+
+    const imagePopup =
+        document.getElementById("imagePopup");
+
+    const closePopup =
+        document.getElementById("closePopup");
+
+    const popupBackdrop =
+        document.querySelector(".popup-backdrop");
+
+
+    /* =====================================================
+       STATE
+    ===================================================== */
+
+    let currentStory = 0;
+
+    let animating = false;
+
+    let movedToPageTwo = false;
+
+
+    /* =====================================================
+       PARTICLES
+    ===================================================== */
+
+    const particleCount =
+        window.innerWidth < 600 ? 12 : 22;
+
+    const fragment =
+        document.createDocumentFragment();
+
+
+    for (
+        let i = 0;
+        i < particleCount;
+        i++
+    ) {
+
+        const particle =
+            document.createElement("span");
+
+        particle.className =
+            "particle";
+
+        particle.style.left =
+            Math.random() * 100 + "%";
+
+        particle.style.top =
+            Math.random() * 100 + "%";
+
+        particle.style.animationDuration =
+            7 + Math.random() * 9 + "s";
+
+        particle.style.animationDelay =
+            Math.random() * -10 + "s";
+
+        fragment.appendChild(
+            particle
+        );
+
     }
 
-  ];
+    particles.appendChild(fragment);
 
 
-  /* =======================================================
-     ELEMENTS
-  ======================================================= */
+    /* =====================================================
+       UPDATE STORY
+    ===================================================== */
 
-  const intro =
-    document.getElementById("motivationIntro");
+    function updateStory(index) {
 
-  const storyContent =
-    document.getElementById("storyContent");
+        const story =
+            stories[index];
 
-  const storyNumber =
-    document.getElementById("storyNumber");
 
-  const storyProgress =
-    document.getElementById("storyProgress");
+        storyContent.classList.remove(
+            "story-enter"
+        );
 
-  const storyLabel =
-    document.getElementById("storyLabel");
+        storyContent.classList.add(
+            "story-exit"
+        );
 
-  const storyText =
-    document.getElementById("storyText");
 
-  const storySubtext =
-    document.getElementById("storySubtext");
+        setTimeout(() => {
 
-  const storyNext =
-    document.getElementById("storyNext");
+            storyNumber.textContent =
+                String(index + 1)
+                    .padStart(2, "0");
 
-  const verificationArea =
-    document.getElementById("verificationArea");
 
-  const hamsterVerify =
-    document.getElementById("hamsterVerify");
+            storyLabel.textContent =
+                story.label;
 
-  const hamsterModal =
-    document.getElementById("hamsterModal");
 
-  const closeHamster =
-    document.getElementById("closeHamster");
+            storyText.textContent =
+                story.title;
 
-  const modalBackdrop =
-    hamsterModal.querySelector(".modal-backdrop");
 
-  const enterWebsite =
-    document.getElementById("enterWebsite");
+            storySubtext.textContent =
+                story.sub;
 
-  const particles =
-    document.getElementById("particles");
 
+            progressBar.style.width =
+                ((index + 1) /
+                    stories.length * 100)
+                + "%";
 
-  /* =======================================================
-     STATE
-  ======================================================= */
 
-  let currentStory = 0;
-  let isAnimating = false;
+            storyContent.classList.remove(
+                "story-exit"
+            );
 
 
-  /* =======================================================
-     PARTICLES
-  ======================================================= */
+            void storyContent.offsetWidth;
 
-  const particleCount =
-    window.innerWidth < 600 ? 12 : 22;
 
-  const particleFragment =
-    document.createDocumentFragment();
+            storyContent.classList.add(
+                "story-enter"
+            );
 
 
-  for (let i = 0; i < particleCount; i++) {
+            animating = false;
 
-    const particle =
-      document.createElement("span");
-
-    particle.className = "particle";
-
-    particle.style.left =
-      Math.random() * 100 + "%";
-
-    particle.style.top =
-      Math.random() * 100 + "%";
-
-    particle.style.animationDuration =
-      7 + Math.random() * 9 + "s";
-
-    particle.style.animationDelay =
-      Math.random() * -10 + "s";
-
-    particleFragment.appendChild(particle);
-
-  }
-
-  particles.appendChild(particleFragment);
-
-
-  /* =======================================================
-     UPDATE STORY
-  ======================================================= */
-
-  function updateStory(index) {
-
-    const story = stories[index];
-
-    storyContent.classList.remove(
-      "story-enter"
-    );
-
-    storyContent.classList.add(
-      "story-exit"
-    );
-
-
-    window.setTimeout(() => {
-
-      storyNumber.textContent =
-        String(index + 1).padStart(2, "0");
-
-      storyLabel.textContent =
-        story.label;
-
-      storyText.textContent =
-        story.title;
-
-      storySubtext.textContent =
-        story.sub;
-
-
-      storyProgress.style.width =
-        ((index + 1) / stories.length) * 100 + "%";
-
-
-      storyContent.classList.remove(
-        "story-exit"
-      );
-
-      /*
-        Force browser to recognize the
-        animation restart.
-      */
-      void storyContent.offsetWidth;
-
-      storyContent.classList.add(
-        "story-enter"
-      );
-
-      isAnimating = false;
-
-    }, 430);
-
-  }
-
-
-  /* =======================================================
-     NEXT STORY
-  ======================================================= */
-
-  storyNext.addEventListener(
-    "click",
-    () => {
-
-      if (isAnimating) return;
-
-      isAnimating = true;
-
-
-      if (
-        currentStory <
-        stories.length - 1
-      ) {
-
-        currentStory++;
-
-        updateStory(currentStory);
-
-      } else {
-
-        showVerification();
-
-      }
+        }, 430);
 
     }
-  );
 
 
-  /* =======================================================
-     SHOW VERIFICATION
-  ======================================================= */
+    /* =====================================================
+       NEXT BUTTON
+    ===================================================== */
 
-  function showVerification() {
+    nextButton.addEventListener(
+        "click",
+        () => {
 
-    storyContent.classList.add(
-      "story-exit"
+            if (animating) {
+                return;
+            }
+
+
+            if (
+                currentStory <
+                stories.length - 1
+            ) {
+
+                animating = true;
+
+                currentStory++;
+
+                updateStory(
+                    currentStory
+                );
+
+                return;
+            }
+
+
+            /*
+                Final NEXT:
+                Move to completely new page.
+            */
+
+            goToPageTwo();
+
+        }
     );
 
-    storyNext.style.opacity = "0";
-    storyNext.style.pointerEvents = "none";
+
+    /* =====================================================
+       PAGE 2 TRANSITION
+    ===================================================== */
+
+    function goToPageTwo() {
+
+        if (movedToPageTwo) {
+            return;
+        }
+
+        movedToPageTwo = true;
 
 
-    window.setTimeout(() => {
+        /*
+            Fade/scale Page 1 away.
+        */
 
-      storyContent.style.display = "none";
-
-      verificationArea.classList.add(
-        "active"
-      );
-
-    }, 450);
-
-  }
+        pageOne.classList.add(
+            "hide"
+        );
 
 
-  /* =======================================================
-     OPEN HAMSTER MODAL
-  ======================================================= */
+        /*
+            Activate Page 2.
+        */
 
-  function openModal() {
+        setTimeout(() => {
 
-    hamsterModal.classList.add(
-      "active"
-    );
+            pageTwo.classList.add(
+                "active"
+            );
 
-    hamsterModal.setAttribute(
-      "aria-hidden",
-      "false"
-    );
-
-    document.body.style.overflow =
-      "hidden";
+        }, 180);
 
 
-    window.setTimeout(() => {
+        /*
+            After the cinematic transition,
+            automatically reveal the image.
+        */
 
-      closeHamster.focus();
+        setTimeout(() => {
 
-    }, 120);
+            openImagePopup();
 
-  }
-
-
-  hamsterVerify.addEventListener(
-    "click",
-    openModal
-  );
-
-
-  /* =======================================================
-     CLOSE HAMSTER MODAL
-  ======================================================= */
-
-  function closeModal() {
-
-    hamsterModal.classList.remove(
-      "active"
-    );
-
-    hamsterModal.setAttribute(
-      "aria-hidden",
-      "true"
-    );
-
-    document.body.style.overflow = "";
-
-  }
-
-
-  closeHamster.addEventListener(
-    "click",
-    closeModal
-  );
-
-
-  modalBackdrop.addEventListener(
-    "click",
-    closeModal
-  );
-
-
-  /* =======================================================
-     ESC KEY
-  ======================================================= */
-
-  document.addEventListener(
-    "keydown",
-    event => {
-
-      if (
-        event.key === "Escape" &&
-        hamsterModal.classList.contains(
-          "active"
-        )
-      ) {
-
-        closeModal();
-
-      }
+        }, 1050);
 
     }
-  );
 
 
-  /* =======================================================
-     ENTER EXISTING WEBSITE
-  ======================================================= */
+    /* =====================================================
+       OPEN IMAGE POPUP
+    ===================================================== */
 
-  enterWebsite.addEventListener(
-    "click",
-    () => {
+    function openImagePopup() {
 
-      intro.classList.add(
-        "intro-complete"
-      );
+        imagePopup.classList.add(
+            "active"
+        );
+
+        imagePopup.setAttribute(
+            "aria-hidden",
+            "false"
+        );
 
 
-      window.setTimeout(() => {
+        document.body.style.overflow =
+            "hidden";
 
-        intro.style.display = "none";
 
-        document.body.style.overflow = "";
+        setTimeout(() => {
 
-      }, 800);
+            closePopup.focus();
+
+        }, 650);
 
     }
-  );
 
 
-  /* =======================================================
-     HAMSTER BUTTON MICRO-INTERACTION
-     
-     Desktop only.
-     No magnetic effect on mobile/touch devices.
-  ======================================================= */
+    /* =====================================================
+       CLOSE IMAGE POPUP
+    ===================================================== */
 
-  const canHover =
-    window.matchMedia(
-      "(hover: hover) and (pointer: fine)"
-    ).matches;
+    function closeImagePopup() {
+
+        imagePopup.classList.remove(
+            "active"
+        );
+
+        imagePopup.setAttribute(
+            "aria-hidden",
+            "true"
+        );
 
 
-  if (canHover) {
+        document.body.style.overflow =
+            "";
 
-    hamsterVerify.addEventListener(
-      "pointermove",
-      event => {
+    }
 
-        const rect =
-          hamsterVerify.getBoundingClientRect();
 
-        const x =
-          event.clientX -
-          (rect.left + rect.width / 2);
-
-        const y =
-          event.clientY -
-          (rect.top + rect.height / 2);
-
-        const moveX =
-          Math.max(-5, Math.min(5, x / 12));
-
-        const moveY =
-          Math.max(-5, Math.min(5, y / 12));
-
-        hamsterVerify.style.transform =
-          `translate3d(${moveX}px,${moveY}px,0) scale(1.02)`;
-
-      }
+    closePopup.addEventListener(
+        "click",
+        closeImagePopup
     );
 
 
-    hamsterVerify.addEventListener(
-      "pointerleave",
-      () => {
-
-        hamsterVerify.style.transform = "";
-
-      }
+    popupBackdrop.addEventListener(
+        "click",
+        closeImagePopup
     );
 
-  }
+
+    /* =====================================================
+       ESC KEY
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                imagePopup.classList.contains(
+                    "active"
+                )
+            ) {
+
+                closeImagePopup();
+
+            }
+
+        }
+    );
 
 
-  /* =======================================================
-     INITIAL STATE
-  ======================================================= */
+    /* =====================================================
+       INITIAL PROGRESS
+    ===================================================== */
 
-  storyProgress.style.width =
-    (1 / stories.length) * 100 + "%";
+    progressBar.style.width =
+        (1 / stories.length * 100)
+        + "%";
 
 
 })();
+
 </script>
 
 </body>
