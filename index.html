@@ -1,134 +1,1705 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+<title>Keep Going</title>
 
-    <title>Money Follows Maah</title>
+<style>
+/* =========================================================
+   RESET
+========================================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background: #111;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow-x: hidden;
-        }
+body {
+  background: #050505;
+  color: #f5f5f2;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  overflow-x: hidden;
+}
 
-        h1 {
-            margin: 25px 10px;
-            font-size: clamp(25px, 5vw, 45px);
 
-            animation: titleGlow 2s ease-in-out infinite alternate;
-        }
+/* =========================================================
+   INTRO
+========================================================= */
+#motivationIntro {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
 
-        .image-container {
-            width: 100%;
-            padding: 10px 20px 40px;
+  width: 100%;
+  height: 100svh;
+  min-height: 560px;
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-        .ravi-image {
-            /* FULL IMAGE — NO CROPPING */
-            width: 100%;
-            max-width: 1000px;
-            height: auto;
+  overflow: hidden;
+  isolation: isolate;
 
-            display: block;
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      rgba(255,255,255,.055),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(255,255,255,.025),
+      transparent 30%
+    ),
+    #050505;
 
-            border-radius: 25px;
+  transition:
+    opacity .75s cubic-bezier(.16,1,.3,1),
+    transform .75s cubic-bezier(.16,1,.3,1);
+}
 
-            /* Animation */
-            animation:
-                entrance 1.3s ease-out,
-                pulse 2.5s ease-in-out 1.3s infinite,
-                glow 2s ease-in-out infinite alternate;
+#motivationIntro.intro-complete {
+  opacity: 0;
+  transform: scale(1.025);
+  pointer-events: none;
+}
 
-            transition: transform 0.4s ease;
-        }
 
-        /* Entrance */
-        @keyframes entrance {
-            0% {
-                opacity: 0;
-                transform: scale(0.5) rotate(-8deg);
-            }
+/* =========================================================
+   BACKGROUND
+========================================================= */
+.intro-noise {
+  position: absolute;
+  inset: 0;
+  z-index: -4;
+  pointer-events: none;
+  opacity: .035;
 
-            70% {
-                opacity: 1;
-                transform: scale(1.04) rotate(2deg);
-            }
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
 
-            100% {
-                transform: scale(1) rotate(0deg);
-            }
-        }
+.intro-orb {
+  position: absolute;
+  z-index: -3;
 
-        /* Continuous animation */
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
+  border-radius: 50%;
+  pointer-events: none;
 
-            50% {
-                transform: scale(1.035);
-            }
-        }
+  filter: blur(90px);
+  opacity: .10;
 
-        /* Glow */
-        @keyframes glow {
-            from {
-                box-shadow:
-                    0 0 10px gold;
-            }
+  will-change: transform;
+}
 
-            to {
-                box-shadow:
-                    0 0 25px gold,
-                    0 0 55px orange;
-            }
-        }
+.orb-one {
+  width: 430px;
+  height: 430px;
+  top: -230px;
+  left: -180px;
+  background: #fff;
 
-        /* Hover */
-        .ravi-image:hover {
-            transform: scale(1.06) rotate(2deg);
-        }
+  animation: orbOne 14s ease-in-out infinite alternate;
+}
 
-        /* Title animation */
-        @keyframes titleGlow {
-            from {
-                text-shadow: 0 0 5px white;
-            }
+.orb-two {
+  width: 360px;
+  height: 360px;
+  right: -160px;
+  bottom: -190px;
+  background: #999;
 
-            to {
-                text-shadow:
-                    0 0 15px gold,
-                    0 0 30px orange;
-            }
-        }
-    </style>
+  animation: orbTwo 17s ease-in-out infinite alternate;
+}
+
+@keyframes orbOne {
+  from {
+    transform: translate3d(0,0,0);
+  }
+  to {
+    transform: translate3d(70px,45px,0);
+  }
+}
+
+@keyframes orbTwo {
+  from {
+    transform: translate3d(0,0,0);
+  }
+  to {
+    transform: translate3d(-55px,-45px,0);
+  }
+}
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+#particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.particle {
+  position: absolute;
+
+  width: 2px;
+  height: 2px;
+
+  border-radius: 50%;
+  background: rgba(255,255,255,.45);
+
+  animation:
+    particleFloat linear infinite;
+
+  will-change: transform, opacity;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translate3d(0,35px,0);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: .5;
+  }
+
+  80% {
+    opacity: .25;
+  }
+
+  100% {
+    transform: translate3d(0,-120px,0);
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   TOP PROGRESS
+========================================================= */
+.story-progress {
+  position: absolute;
+
+  top: 28px;
+  left: 50%;
+
+  width: min(330px,55vw);
+  height: 1px;
+
+  transform: translateX(-50%);
+
+  background: rgba(255,255,255,.12);
+}
+
+#storyProgress {
+  display: block;
+
+  width: 12.5%;
+  height: 100%;
+
+  background: rgba(255,255,255,.9);
+
+  transition:
+    width .8s cubic-bezier(.16,1,.3,1);
+}
+
+
+/* =========================================================
+   STORY
+========================================================= */
+.story-container {
+  position: relative;
+
+  width: min(1100px, calc(100% - 40px));
+
+  text-align: center;
+}
+
+.story-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+
+  margin-bottom: 34px;
+
+  color: rgba(255,255,255,.38);
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: .25em;
+}
+
+.counter-line {
+  width: 42px;
+  height: 1px;
+  background: rgba(255,255,255,.18);
+}
+
+.story-content {
+  min-height: 330px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-label {
+  margin-bottom: 25px;
+
+  color: rgba(255,255,255,.42);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: .34em;
+}
+
+#storyText {
+  max-width: 1000px;
+
+  color: #f5f5f2;
+
+  font-size: clamp(43px, 7vw, 94px);
+  font-weight: 700;
+
+  line-height: .98;
+  letter-spacing: -.06em;
+
+  text-wrap: balance;
+}
+
+#storySubtext {
+  max-width: 650px;
+
+  margin-top: 28px;
+
+  color: #8d8d89;
+
+  font-size: clamp(14px, 1.5vw, 19px);
+  line-height: 1.7;
+
+  text-wrap: balance;
+}
+
+
+/* =========================================================
+   STORY ANIMATION
+========================================================= */
+.story-enter {
+  animation:
+    storyEnter .8s cubic-bezier(.16,1,.3,1) both;
+}
+
+.story-exit {
+  animation:
+    storyExit .42s cubic-bezier(.4,0,1,1) both;
+}
+
+@keyframes storyEnter {
+  from {
+    opacity: 0;
+    transform:
+      translate3d(0,35px,0)
+      scale(.97);
+
+    filter: blur(9px);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translate3d(0,0,0)
+      scale(1);
+
+    filter: blur(0);
+  }
+}
+
+@keyframes storyExit {
+  from {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0,-24px,0);
+    filter: blur(8px);
+  }
+}
+
+
+/* =========================================================
+   CONTINUE BUTTON
+========================================================= */
+#storyNext {
+  margin-top: 28px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  padding: 13px 21px;
+
+  border:
+    1px solid rgba(255,255,255,.13);
+
+  border-radius: 999px;
+
+  background: rgba(255,255,255,.035);
+
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: .2em;
+
+  cursor: pointer;
+
+  transition:
+    transform .3s cubic-bezier(.16,1,.3,1),
+    background .3s ease,
+    border-color .3s ease;
+}
+
+#storyNext:hover {
+  transform: translateY(-3px);
+
+  background: rgba(255,255,255,.075);
+
+  border-color:
+    rgba(255,255,255,.3);
+}
+
+#storyNext:active {
+  transform: scale(.96);
+}
+
+.next-arrow {
+  font-size: 16px;
+
+  transition:
+    transform .3s ease;
+}
+
+#storyNext:hover .next-arrow {
+  transform: translateY(3px);
+}
+
+
+/* =========================================================
+   FINAL VERIFICATION SCREEN
+========================================================= */
+#verificationArea {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform:
+    translate3d(0,30px,0)
+    scale(.98);
+
+  transition:
+    opacity .8s ease,
+    transform .8s cubic-bezier(.16,1,.3,1),
+    visibility 0s linear .8s;
+}
+
+#verificationArea.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transform:
+    translate3d(0,0,0)
+    scale(1);
+
+  transition:
+    opacity .8s ease,
+    transform .8s cubic-bezier(.16,1,.3,1);
+}
+
+.final-eyebrow {
+  margin-bottom: 21px;
+
+  color: rgba(255,255,255,.4);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: .34em;
+}
+
+#verificationArea h2 {
+  margin-bottom: 40px;
+
+  color: #f5f5f2;
+
+  font-size: clamp(48px,7vw,88px);
+  line-height: .94;
+
+  letter-spacing: -.06em;
+}
+
+#verificationArea h2 span {
+  color: rgba(255,255,255,.38);
+}
+
+
+/* =========================================================
+   HAMSTER BUTTON
+========================================================= */
+#hamsterVerify {
+  position: relative;
+
+  min-width: 270px;
+  height: 62px;
+
+  padding: 0 22px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  overflow: hidden;
+
+  border:
+    1px solid rgba(255,255,255,.18);
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.12),
+      rgba(255,255,255,.035)
+    );
+
+  color: #fff;
+
+  font-family: inherit;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 20px 55px rgba(0,0,0,.4),
+    inset 0 1px 0 rgba(255,255,255,.1);
+
+  transition:
+    transform .35s cubic-bezier(.16,1,.3,1),
+    border-color .35s ease;
+}
+
+#hamsterVerify:hover {
+  transform:
+    translate3d(0,-4px,0)
+    scale(1.025);
+
+  border-color:
+    rgba(255,255,255,.4);
+}
+
+#hamsterVerify:active {
+  transform: scale(.96);
+}
+
+.hamster-icon {
+  position: relative;
+  z-index: 2;
+
+  font-size: 21px;
+
+  transition:
+    transform .35s cubic-bezier(.16,1,.3,1);
+}
+
+#hamsterVerify:hover .hamster-icon {
+  transform:
+    rotate(-8deg)
+    scale(1.13);
+}
+
+.button-text {
+  position: relative;
+  z-index: 2;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: .2em;
+}
+
+.button-arrow {
+  position: relative;
+  z-index: 2;
+
+  font-size: 18px;
+
+  transition:
+    transform .35s ease;
+}
+
+#hamsterVerify:hover .button-arrow {
+  transform:
+    translate3d(3px,-3px,0);
+}
+
+.button-shine {
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 45%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.18),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  transition:
+    left .7s ease;
+}
+
+#hamsterVerify:hover .button-shine {
+  left: 150%;
+}
+
+
+/* =========================================================
+   ENTER WEBSITE
+========================================================= */
+#enterWebsite {
+  margin-top: 22px;
+
+  border: 0;
+
+  background: transparent;
+
+  color: rgba(255,255,255,.35);
+
+  font-family: inherit;
+  font-size: 10px;
+
+  letter-spacing: .18em;
+
+  cursor: pointer;
+
+  transition:
+    color .25s ease;
+}
+
+#enterWebsite:hover {
+  color: #fff;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+#hamsterModal {
+  position: fixed;
+  inset: 0;
+
+  z-index: 20000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity .45s ease,
+    visibility 0s linear .45s;
+}
+
+#hamsterModal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transition:
+    opacity .45s ease;
+}
+
+
+/* =========================================================
+   MODAL BACKDROP
+========================================================= */
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+
+  background:
+    rgba(0,0,0,.84);
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
+}
+
+.modal-glow {
+  position: absolute;
+
+  width: min(75vw,700px);
+  height: min(75vw,700px);
+
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,.07);
+
+  filter: blur(100px);
+
+  opacity: 0;
+
+  transition:
+    opacity .7s ease;
+}
+
+#hamsterModal.active .modal-glow {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   MODAL CARD
+========================================================= */
+.modal-card {
+  position: relative;
+  z-index: 2;
+
+  max-width: min(650px,94vw);
+  max-height: 94vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  opacity: 0;
+
+  transform:
+    translate3d(0,35px,0)
+    scale(.82);
+
+  filter: blur(12px);
+
+  transition:
+    opacity .5s ease,
+    transform .7s cubic-bezier(.16,1,.3,1),
+    filter .7s ease;
+}
+
+#hamsterModal.active .modal-card {
+  opacity: 1;
+
+  transform:
+    translate3d(0,0,0)
+    scale(1);
+
+  filter: blur(0);
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+#closeHamster {
+  position: absolute;
+
+  top: -17px;
+  right: -17px;
+
+  z-index: 20;
+
+  width: 43px;
+  height: 43px;
+
+  display: grid;
+  place-items: center;
+
+  border:
+    1px solid rgba(255,255,255,.18);
+
+  border-radius: 50%;
+
+  background:
+    rgba(15,15,15,.92);
+
+  color: white;
+
+  font-family: inherit;
+  font-size: 25px;
+  font-weight: 300;
+
+  cursor: pointer;
+
+  transition:
+    transform .3s ease,
+    background .3s ease;
+}
+
+#closeHamster:hover {
+  transform:
+    rotate(90deg)
+    scale(1.08);
+
+  background:
+    rgba(255,255,255,.12);
+}
+
+
+/* =========================================================
+   VERIFIED BADGE
+========================================================= */
+.verification-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 15px;
+
+  color: rgba(255,255,255,.52);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: .27em;
+}
+
+.verification-badge span {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  box-shadow:
+    0 0 15px rgba(255,255,255,.8);
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+.image-wrapper {
+  position: relative;
+
+  max-width: 100%;
+  max-height: 72vh;
+}
+
+.image-glow {
+  position: absolute;
+  inset: 5%;
+
+  z-index: -1;
+
+  background:
+    rgba(255,255,255,.11);
+
+  filter: blur(45px);
+}
+
+.hamster-image {
+  display: block;
+
+  width: auto;
+  height: auto;
+
+  max-width: min(600px,88vw);
+  max-height: 68vh;
+
+  object-fit: contain;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 35px 100px rgba(0,0,0,.8),
+    0 0 0 1px rgba(255,255,255,.12);
+
+  user-select: none;
+}
+
+
+/* =========================================================
+   VERIFICATION TEXT
+========================================================= */
+.verification-result {
+  margin-top: 20px;
+
+  text-align: center;
+}
+
+.result-title {
+  color: #fff;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: .28em;
+}
+
+.result-subtitle {
+  margin-top: 7px;
+
+  color: rgba(255,255,255,.42);
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   EXISTING WEBSITE EXAMPLE
+   Replace this section with your existing website.
+========================================================= */
+#existingWebsite {
+  min-height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  background: #0a0a0a;
+
+  color: white;
+
+  text-align: center;
+}
+
+#existingWebsite h1 {
+  font-size: clamp(40px,7vw,80px);
+  letter-spacing: -.05em;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+@media (max-width: 600px) {
+
+  #motivationIntro {
+    min-height: 520px;
+  }
+
+  .story-container {
+    width: calc(100% - 30px);
+  }
+
+  .story-content {
+    min-height: 290px;
+  }
+
+  #storyText {
+    font-size: clamp(39px,12vw,58px);
+  }
+
+  #storySubtext {
+    max-width: 340px;
+    font-size: 14px;
+  }
+
+  .story-label {
+    font-size: 9px;
+  }
+
+  #verificationArea h2 {
+    font-size: 49px;
+  }
+
+  #hamsterVerify {
+    width: min(290px,90vw);
+  }
+
+  .modal-card {
+    max-width: 94vw;
+  }
+
+  .hamster-image {
+    max-width: 88vw;
+    max-height: 65vh;
+    border-radius: 14px;
+  }
+
+  #closeHamster {
+    top: -12px;
+    right: -5px;
+  }
+
+  .orb-one {
+    width: 280px;
+    height: 280px;
+  }
+
+  .orb-two {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY / REDUCED MOTION
+========================================================= */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
 </head>
+
 
 <body>
 
-    <h1>Money follows maah brothaaa 💰</h1>
 
-    <div class="image-container">
-        <img
-            class="ravi-image"
-            src="ravikishan.jpg"
-            alt="Money follows maah brothaaa"
-        >
+<!-- =======================================================
+     CINEMATIC MOTIVATIONAL INTRO
+======================================================= -->
+
+<section id="motivationIntro">
+
+  <div class="intro-noise"></div>
+
+  <div class="intro-orb orb-one"></div>
+  <div class="intro-orb orb-two"></div>
+
+  <div id="particles"></div>
+
+
+  <!-- Progress -->
+  <div class="story-progress">
+    <span id="storyProgress"></span>
+  </div>
+
+
+  <!-- Story -->
+  <main class="story-container">
+
+    <div class="story-counter">
+      <span id="storyNumber">01</span>
+
+      <span class="counter-line"></span>
+
+      <span>08</span>
     </div>
+
+
+    <div
+      id="storyContent"
+      class="story-content story-enter"
+    >
+
+      <div
+        id="storyLabel"
+        class="story-label"
+      >
+        THE BEGINNING
+      </div>
+
+      <h1 id="storyText">
+        Everyone sees the destination.
+      </h1>
+
+      <p id="storySubtext">
+        Almost nobody sees the nights that built it.
+      </p>
+
+    </div>
+
+
+    <button
+      id="storyNext"
+      type="button"
+    >
+      <span>CONTINUE</span>
+
+      <span class="next-arrow">
+        ↓
+      </span>
+    </button>
+
+  </main>
+
+
+  <!-- =====================================================
+       FINAL VERIFICATION
+  ====================================================== -->
+
+  <div id="verificationArea">
+
+    <div class="final-eyebrow">
+      YOU MADE IT THIS FAR
+    </div>
+
+    <h2>
+      Now prove<br>
+      <span>you're different.</span>
+    </h2>
+
+
+    <button
+      id="hamsterVerify"
+      type="button"
+    >
+
+      <span class="button-shine"></span>
+
+      <span class="hamster-icon">
+        🐹
+      </span>
+
+      <span class="button-text">
+        VERIFY AS HAMSTER
+      </span>
+
+      <span class="button-arrow">
+        ↗
+      </span>
+
+    </button>
+
+
+    <button
+      id="enterWebsite"
+      type="button"
+    >
+      ENTER WEBSITE
+    </button>
+
+  </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     HAMSTER MODAL
+======================================================= -->
+
+<div
+  id="hamsterModal"
+  aria-hidden="true"
+>
+
+  <div class="modal-backdrop"></div>
+
+  <div class="modal-glow"></div>
+
+
+  <div
+    class="modal-card"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Hamster verification"
+  >
+
+    <button
+      id="closeHamster"
+      type="button"
+      aria-label="Close verification"
+    >
+      ×
+    </button>
+
+
+    <div class="verification-badge">
+
+      <span></span>
+
+      VERIFIED
+
+    </div>
+
+
+    <div class="image-wrapper">
+
+      <div class="image-glow"></div>
+
+      <!--
+        IMPORTANT:
+        Keep ravikishan(1).jpg in the same folder
+        as this HTML file.
+      -->
+
+      <img
+        class="hamster-image"
+        src="ravikishan(1).jpg"
+        alt="Hamster verification"
+      >
+
+    </div>
+
+
+    <div class="verification-result">
+
+      <div class="result-title">
+        VERIFICATION COMPLETE
+      </div>
+
+      <div class="result-subtitle">
+        🐹 Certified Hamster.
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =======================================================
+     YOUR EXISTING WEBSITE
+     
+     IMPORTANT:
+     Replace ONLY this demo section with your existing
+     website code. Do NOT delete your existing application.
+======================================================= -->
+
+<div id="existingWebsite">
+
+  <div>
+
+    <h1>
+      Your Existing Website
+    </h1>
+
+    <p style="
+      margin-top:20px;
+      color:#777;
+    ">
+      Replace this demo section with your existing website.
+    </p>
+
+  </div>
+
+</div>
+
+
+
+<script>
+/* =========================================================
+   CINEMATIC MOTIVATIONAL EXPERIENCE
+========================================================= */
+
+(() => {
+
+  "use strict";
+
+
+  /* =======================================================
+     STORY CONTENT
+  ======================================================= */
+
+  const stories = [
+
+    {
+      label: "THE BEGINNING",
+      title: "Everyone sees the destination.",
+      sub:
+        "Almost nobody sees the nights that built it."
+    },
+
+    {
+      label: "THE START",
+      title: "You begin with almost nothing.",
+      sub:
+        "No applause. No shortcuts. Just the courage to start."
+    },
+
+    {
+      label: "THE DOUBT",
+      title: "Then people start questioning you.",
+      sub:
+        "They doubt your idea. Then they doubt you."
+    },
+
+    {
+      label: "THE FALL",
+      title: "You will fail.",
+      sub:
+        "Sometimes harder than you ever expected."
+    },
+
+    {
+      label: "THE CHOICE",
+      title: "But falling is not the ending.",
+      sub:
+        "The real story begins when you decide to stand again."
+    },
+
+    {
+      label: "THE DISCIPLINE",
+      title: "You keep moving without motivation.",
+      sub:
+        "Because discipline carries you when motivation disappears."
+    },
+
+    {
+      label: "THE RESULT",
+      title: "One day, the impossible looks obvious.",
+      sub:
+        "Not because life became easier. Because you became stronger."
+    },
+
+    {
+      label: "THE FUTURE",
+      title: "Build quietly. Let the result speak.",
+      sub:
+        "Your future self is counting on what you do today."
+    }
+
+  ];
+
+
+  /* =======================================================
+     ELEMENTS
+  ======================================================= */
+
+  const intro =
+    document.getElementById("motivationIntro");
+
+  const storyContent =
+    document.getElementById("storyContent");
+
+  const storyNumber =
+    document.getElementById("storyNumber");
+
+  const storyProgress =
+    document.getElementById("storyProgress");
+
+  const storyLabel =
+    document.getElementById("storyLabel");
+
+  const storyText =
+    document.getElementById("storyText");
+
+  const storySubtext =
+    document.getElementById("storySubtext");
+
+  const storyNext =
+    document.getElementById("storyNext");
+
+  const verificationArea =
+    document.getElementById("verificationArea");
+
+  const hamsterVerify =
+    document.getElementById("hamsterVerify");
+
+  const hamsterModal =
+    document.getElementById("hamsterModal");
+
+  const closeHamster =
+    document.getElementById("closeHamster");
+
+  const modalBackdrop =
+    hamsterModal.querySelector(".modal-backdrop");
+
+  const enterWebsite =
+    document.getElementById("enterWebsite");
+
+  const particles =
+    document.getElementById("particles");
+
+
+  /* =======================================================
+     STATE
+  ======================================================= */
+
+  let currentStory = 0;
+  let isAnimating = false;
+
+
+  /* =======================================================
+     PARTICLES
+  ======================================================= */
+
+  const particleCount =
+    window.innerWidth < 600 ? 12 : 22;
+
+  const particleFragment =
+    document.createDocumentFragment();
+
+
+  for (let i = 0; i < particleCount; i++) {
+
+    const particle =
+      document.createElement("span");
+
+    particle.className = "particle";
+
+    particle.style.left =
+      Math.random() * 100 + "%";
+
+    particle.style.top =
+      Math.random() * 100 + "%";
+
+    particle.style.animationDuration =
+      7 + Math.random() * 9 + "s";
+
+    particle.style.animationDelay =
+      Math.random() * -10 + "s";
+
+    particleFragment.appendChild(particle);
+
+  }
+
+  particles.appendChild(particleFragment);
+
+
+  /* =======================================================
+     UPDATE STORY
+  ======================================================= */
+
+  function updateStory(index) {
+
+    const story = stories[index];
+
+    storyContent.classList.remove(
+      "story-enter"
+    );
+
+    storyContent.classList.add(
+      "story-exit"
+    );
+
+
+    window.setTimeout(() => {
+
+      storyNumber.textContent =
+        String(index + 1).padStart(2, "0");
+
+      storyLabel.textContent =
+        story.label;
+
+      storyText.textContent =
+        story.title;
+
+      storySubtext.textContent =
+        story.sub;
+
+
+      storyProgress.style.width =
+        ((index + 1) / stories.length) * 100 + "%";
+
+
+      storyContent.classList.remove(
+        "story-exit"
+      );
+
+      /*
+        Force browser to recognize the
+        animation restart.
+      */
+      void storyContent.offsetWidth;
+
+      storyContent.classList.add(
+        "story-enter"
+      );
+
+      isAnimating = false;
+
+    }, 430);
+
+  }
+
+
+  /* =======================================================
+     NEXT STORY
+  ======================================================= */
+
+  storyNext.addEventListener(
+    "click",
+    () => {
+
+      if (isAnimating) return;
+
+      isAnimating = true;
+
+
+      if (
+        currentStory <
+        stories.length - 1
+      ) {
+
+        currentStory++;
+
+        updateStory(currentStory);
+
+      } else {
+
+        showVerification();
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     SHOW VERIFICATION
+  ======================================================= */
+
+  function showVerification() {
+
+    storyContent.classList.add(
+      "story-exit"
+    );
+
+    storyNext.style.opacity = "0";
+    storyNext.style.pointerEvents = "none";
+
+
+    window.setTimeout(() => {
+
+      storyContent.style.display = "none";
+
+      verificationArea.classList.add(
+        "active"
+      );
+
+    }, 450);
+
+  }
+
+
+  /* =======================================================
+     OPEN HAMSTER MODAL
+  ======================================================= */
+
+  function openModal() {
+
+    hamsterModal.classList.add(
+      "active"
+    );
+
+    hamsterModal.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    document.body.style.overflow =
+      "hidden";
+
+
+    window.setTimeout(() => {
+
+      closeHamster.focus();
+
+    }, 120);
+
+  }
+
+
+  hamsterVerify.addEventListener(
+    "click",
+    openModal
+  );
+
+
+  /* =======================================================
+     CLOSE HAMSTER MODAL
+  ======================================================= */
+
+  function closeModal() {
+
+    hamsterModal.classList.remove(
+      "active"
+    );
+
+    hamsterModal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.style.overflow = "";
+
+  }
+
+
+  closeHamster.addEventListener(
+    "click",
+    closeModal
+  );
+
+
+  modalBackdrop.addEventListener(
+    "click",
+    closeModal
+  );
+
+
+  /* =======================================================
+     ESC KEY
+  ======================================================= */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Escape" &&
+        hamsterModal.classList.contains(
+          "active"
+        )
+      ) {
+
+        closeModal();
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     ENTER EXISTING WEBSITE
+  ======================================================= */
+
+  enterWebsite.addEventListener(
+    "click",
+    () => {
+
+      intro.classList.add(
+        "intro-complete"
+      );
+
+
+      window.setTimeout(() => {
+
+        intro.style.display = "none";
+
+        document.body.style.overflow = "";
+
+      }, 800);
+
+    }
+  );
+
+
+  /* =======================================================
+     HAMSTER BUTTON MICRO-INTERACTION
+     
+     Desktop only.
+     No magnetic effect on mobile/touch devices.
+  ======================================================= */
+
+  const canHover =
+    window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    ).matches;
+
+
+  if (canHover) {
+
+    hamsterVerify.addEventListener(
+      "pointermove",
+      event => {
+
+        const rect =
+          hamsterVerify.getBoundingClientRect();
+
+        const x =
+          event.clientX -
+          (rect.left + rect.width / 2);
+
+        const y =
+          event.clientY -
+          (rect.top + rect.height / 2);
+
+        const moveX =
+          Math.max(-5, Math.min(5, x / 12));
+
+        const moveY =
+          Math.max(-5, Math.min(5, y / 12));
+
+        hamsterVerify.style.transform =
+          `translate3d(${moveX}px,${moveY}px,0) scale(1.02)`;
+
+      }
+    );
+
+
+    hamsterVerify.addEventListener(
+      "pointerleave",
+      () => {
+
+        hamsterVerify.style.transform = "";
+
+      }
+    );
+
+  }
+
+
+  /* =======================================================
+     INITIAL STATE
+  ======================================================= */
+
+  storyProgress.style.width =
+    (1 / stories.length) * 100 + "%";
+
+
+})();
+</script>
 
 </body>
 </html>
